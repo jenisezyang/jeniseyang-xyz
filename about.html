@@ -508,24 +508,24 @@
         </div>
       </div>
       <div class="sp-now">
-        <div class="sp-now-art">
+        <div class="sp-now-art" id="spNowArt">
           <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
         </div>
         <div>
           <div class="sp-now-label">Recently played</div>
-          <div class="sp-now-track">Connect Spotify to see</div>
-          <div class="sp-now-artist">your listening stats</div>
+          <div class="sp-now-track" id="spNowTrack">Loading...</div>
+          <div class="sp-now-artist" id="spNowArtist"></div>
         </div>
       </div>
       <div class="sp-label">Top tracks this month</div>
-      <div class="sp-tracks">
-        <div class="sp-track"><span class="sp-track-num">1</span><div class="sp-track-art"></div><div><div class="sp-track-name" style="color:var(--muted)">Coming soon</div></div></div>
-        <div class="sp-track"><span class="sp-track-num">2</span><div class="sp-track-art"></div><div><div class="sp-track-name" style="color:var(--muted)">Coming soon</div></div></div>
-        <div class="sp-track"><span class="sp-track-num">3</span><div class="sp-track-art"></div><div><div class="sp-track-name" style="color:var(--muted)">Coming soon</div></div></div>
+      <div class="sp-tracks" id="spTracks">
+        <div class="sp-track"><span class="sp-track-num">1</span><div class="sp-track-art"></div><div><div class="sp-track-name" style="color:var(--muted)">Loading...</div></div></div>
+        <div class="sp-track"><span class="sp-track-num">2</span><div class="sp-track-art"></div><div><div class="sp-track-name" style="color:var(--muted)">Loading...</div></div></div>
+        <div class="sp-track"><span class="sp-track-num">3</span><div class="sp-track-art"></div><div><div class="sp-track-name" style="color:var(--muted)">Loading...</div></div></div>
       </div>
       <div class="sp-label">Top artists</div>
-      <div class="sp-artists"><span class="sp-chip">Spotify API coming soon</span></div>
-      <div class="sp-note">Live stats · Spotify API integration coming soon</div>
+      <div class="sp-artists" id="spArtists"><span class="sp-chip">Loading...</span></div>
+      <div class="sp-note" id="spNote">Fetching your stats...</div>
     </div>
   </div>
 
@@ -643,7 +643,7 @@
         }
 
         // Update note
-        document.querySelector('.sp-note').textContent = 'Live stats · updated in real time';
+        document.getElementById('spNote').textContent = 'Live stats · updated in real time';
       } catch (e) {
         console.log('Spotify fetch failed', e);
       }
