@@ -596,9 +596,58 @@
     Object.entries(popupMap).forEach(([cellId, popupId]) => {
       document.getElementById(cellId).addEventListener('click', () => {
         document.getElementById(popupId).classList.add('open');
-        if (cellId === 'cell-spotify') document.getElementById('vinylDisc').classList.add('paused');
+        if (cellId === 'cell-spotify') {
+          document.getElementById('vinylDisc').classList.add('paused');
+          loadSpotify();
+        }
       });
     });
+
+    // Spotify fetch
+    let spotifyLoaded = false;
+    async function loadSpotify() {
+      if (spotifyLoaded) return;
+      try {
+        const res = await fetch('/api/spotify');
+        const data = await res.json();
+        if (data.error) return;
+        spotifyLoaded = true;
+
+        // Recent track
+        if (data.recent) {
+          document.getElementById('spNowTrack').textContent = data.recent.name;
+          document.getElementById('spNowArtist').textContent = data.recent.artist;
+          const artEl = document.getElementById('spNowArt');
+          if (data.recent.image) artEl.innerHTML = `<img src="${data.recent.image}" alt="" />`;
+        }
+
+        // Top tracks
+        const tracksEl = document.getElementById('spTracks');
+        if (data.topTracks?.length) {
+          tracksEl.innerHTML = data.topTracks.map((t, i) => `
+            <div class="sp-track">
+              <span class="sp-track-num">${i+1}</span>
+              <div class="sp-track-art">${t.image ? `<img src="${t.image}" alt="" />` : ''}</div>
+              <div>
+                <div class="sp-track-name">${t.name}</div>
+                <div class="sp-track-artist">${t.artist}</div>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        // Top artists
+        const artistsEl = document.getElementById('spArtists');
+        if (data.topArtists?.length) {
+          artistsEl.innerHTML = data.topArtists.map(a => `<span class="sp-chip">${a.name}</span>`).join('');
+        }
+
+        // Update note
+        document.querySelector('.sp-note').textContent = 'Live stats · updated in real time';
+      } catch (e) {
+        console.log('Spotify fetch failed', e);
+      }
+    }
 
     // Close popups
     document.querySelectorAll('.popup-close, .popup-overlay').forEach(el => {
