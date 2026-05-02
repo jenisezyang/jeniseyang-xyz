@@ -3,128 +3,503 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Triple R Strategy — Jenise Yang</title>
+  <title>CBS "New"s - Jenise Yang</title>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --bg: #f8f8f8; --text: #1a1a1a; --muted: #666; --light: #999; --border: #e5e5e5; --blue: #00b4a8; --navy: #1B3A6B; --surface: #fff; }
-    body { cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDMyIDI0Ij48cGF0aCBkPSJNMiw4IEwyLDIgTDgsMiIgc3Ryb2tlPSIjMWExYTJlIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0yNCwyIEwzMCwyIEwzMCw4IiBzdHJva2U9IiMxYTFhMmUiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTIsMTYgTDIsMjIgTDgsMjIiIHN0cm9rZT0iIzFhMWEyZSIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNMjQsMjIgTDMwLDIyIEwzMCwxNiIgc3Ryb2tlPSIjMWExYTJlIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTIiIHI9IjEuMiIgZmlsbD0iIzFhMWEyZSIvPjwvc3ZnPg==") 12 12, crosshair; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; }
-    .back-btn { position: fixed; top: 1.8rem; left: 2rem; z-index: 100; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); cursor: pointer; text-decoration: none; transition: color 0.2s; }
+    :root {
+      --bg: #f8f8f8;
+      --text: #1a1a1a;
+      --muted: #666;
+      --light: #999;
+      --border: #e5e5e5;
+      --blue: #00b4a8;
+      --navy: #1B3A6B;
+      --surface: #fff;
+    }
+    body {
+      cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIzIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC45Ii8+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIwLjUiIG9wYWNpdHk9IjAuNCIvPjwvc3ZnPg==") 12 12, crosshair;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+    }
+
+    .back-btn {
+      position: fixed; top: 1.8rem; left: 2rem; z-index: 100;
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); cursor: pointer; text-decoration: none; transition: color 0.2s;
+    }
     .back-btn:hover { color: var(--text); }
-    .hero { max-width: 1100px; margin: 0 auto; padding: 5rem 3rem 3rem; }
-    .hero-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 400; line-height: 1; margin-bottom: 0.5rem; color: var(--navy); }
+
+    .hero {
+      max-width: 1100px; margin: 0 auto; padding: 5rem 3rem 3rem;
+    }
+    .hero-eyebrow {
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 0.75rem; font-weight: 500;
+    }
+    .hero-title {
+      font-family: 'Instrument Serif', serif; font-style: italic;
+      font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 400;
+      line-height: 1; margin-bottom: 0.5rem; color: var(--navy);
+    }
     .hero-tag { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
-    .hero-meta { display: flex; gap: 3rem; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
-    .meta-label { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--light); margin-bottom: 0.3rem; }
+    .hero-meta {
+      display: flex; gap: 3rem; margin-bottom: 3rem;
+      padding-bottom: 2rem; border-bottom: 1px solid var(--border); flex-wrap: wrap;
+    }
+    .meta-label {
+      font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--light); margin-bottom: 0.3rem;
+    }
     .meta-value { font-size: 0.8rem; color: var(--text); }
     .meta-value a { color: var(--blue); text-decoration: none; }
-    .layout { max-width: 1100px; margin: 0 auto; padding: 0 3rem 6rem; display: grid; grid-template-columns: 1fr 280px; gap: 4rem; }
+
+    .layout {
+      max-width: 1100px; margin: 0 auto; padding: 0 3rem 6rem;
+      display: grid; grid-template-columns: 1fr 280px; gap: 4rem;
+    }
+
     .section { margin-bottom: 3rem; }
-    .section-title { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.75rem; }
+    .section-title {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 0.75rem;
+    }
     .section-text { font-size: 0.88rem; color: var(--text); line-height: 1.75; }
-    .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
-    .pillar-card { background: var(--navy); border-radius: 8px; padding: 1.5rem; color: white; text-align: center; }
-    .pillar-letter { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 3rem; font-weight: 400; color: #00f5e4; line-height: 1; margin-bottom: 0.5rem; }
+
+    /* Pillar grid */
+    .pillar-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1rem; margin-top: 1.5rem;
+    }
+    .pillar-card {
+      background: var(--navy); border-radius: 8px;
+      padding: 1.5rem; color: white; text-align: center;
+    }
+    .pillar-letter {
+      font-family: 'Inter', sans-serif; font-style: normal;
+      font-size: 2rem; font-weight: 700; color: #00b4a8;
+      line-height: 1; margin-bottom: 0.5rem; letter-spacing: 0.05em;
+    }
     .pillar-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; }
     .pillar-text { font-size: 0.75rem; opacity: 0.7; line-height: 1.5; }
-    .story-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1.25rem; margin-bottom: 1rem; }
-    .story-card p { font-size: 0.82rem; margin-bottom: 0.75rem; line-height: 1.5; }
-    .criteria-label { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--light); margin-bottom: 0.4rem; }
-    .criteria-list { list-style: none; }
-    .criteria-list li { font-size: 0.78rem; color: var(--muted); padding-left: 1rem; position: relative; margin-bottom: 0.2rem; }
-    .criteria-list li::before { content: '•'; position: absolute; left: 0; color: var(--blue); }
-    .north-star { background: var(--navy); border-radius: 8px; padding: 1.25rem 1.5rem; margin-top: 1rem; margin-bottom: 1rem; }
-    .ns-label { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 0.4rem; }
+
+    /* Round cards */
+    .round-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem;
+    }
+    .round-card {
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 1.25rem; background: var(--surface);
+    }
+    .round-card-label {
+      font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 0.5rem; font-weight: 600;
+    }
+    .round-card-title {
+      font-size: 0.82rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem;
+    }
+    .round-card-text { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+
+    /* Story card */
+    .story-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 6px; padding: 1.25rem; margin-bottom: 1rem;
+    }
+    .story-card p {
+      font-size: 0.82rem; margin-bottom: 0.75rem; line-height: 1.5;
+    }
+    .story-card p:last-child { margin-bottom: 0; }
+
+    /* North star */
+    .north-star {
+      background: var(--navy); border-radius: 8px;
+      padding: 1.25rem 1.5rem; margin-top: 1rem; margin-bottom: 1rem;
+    }
+    .ns-label {
+      font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); margin-bottom: 0.4rem;
+    }
     .ns-value { font-size: 0.95rem; font-weight: 600; color: white; line-height: 1.4; }
+
+    /* KPI list */
     .kpi-list { list-style: none; }
-    .kpi-list li { font-size: 0.8rem; color: var(--muted); padding: 0.4rem 0; padding-left: 1.25rem; position: relative; border-bottom: 1px solid var(--border); }
+    .kpi-list li {
+      font-size: 0.8rem; color: var(--muted); padding: 0.4rem 0;
+      padding-left: 1.25rem; position: relative;
+      border-bottom: 1px solid var(--border);
+    }
     .kpi-list li:last-child { border-bottom: none; }
     .kpi-list li::before { content: '→'; position: absolute; left: 0; color: var(--blue); }
-    .reflection-card { background: var(--surface); border-left: 3px solid var(--blue); border-radius: 0 6px 6px 0; padding: 1.25rem 1.5rem; margin-bottom: 1rem; }
+
+    /* Reflection cards */
+    .reflection-card {
+      background: var(--surface); border-left: 3px solid var(--blue);
+      border-radius: 0 6px 6px 0; padding: 1.25rem 1.5rem; margin-bottom: 1rem;
+    }
     .reflection-title { font-size: 0.82rem; font-weight: 600; margin-bottom: 0.6rem; }
     .reflection-text { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+
+    /* Timeline */
+    .timeline { margin-top: 1.5rem; }
+    .timeline-item {
+      display: flex; gap: 1rem; margin-bottom: 1.25rem; align-items: flex-start;
+    }
+    .timeline-dot-col {
+      display: flex; flex-direction: column; align-items: center; flex-shrink: 0;
+    }
+    .timeline-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--blue); flex-shrink: 0; margin-top: 0.2rem;
+    }
+    .timeline-line {
+      width: 1px; flex: 1; background: var(--border);
+      min-height: 20px; margin-top: 2px;
+    }
+    .timeline-item:last-child .timeline-line { display: none; }
+    .timeline-label {
+      font-size: 0.62rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 0.15rem;
+    }
+    .timeline-text { font-size: 0.78rem; color: var(--text); line-height: 1.5; }
+    .timeline-sub { font-size: 0.72rem; color: var(--muted); }
+
+    /* Sidebar */
     .sidebar { position: sticky; top: 5rem; }
-    .sidebar-label { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--light); margin-bottom: 1rem; }
-    .journey-item { position: relative; padding-left: 1.5rem; margin-bottom: 1.5rem; }
-    .journey-item::before { content: ''; position: absolute; left: 0; top: 0.35rem; width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+    .sidebar-label {
+      font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--light); margin-bottom: 1rem;
+    }
+    .journey-item {
+      position: relative; padding-left: 1.5rem; margin-bottom: 1.5rem;
+    }
+    .journey-item::before {
+      content: ''; position: absolute; left: 0; top: 0.35rem;
+      width: 8px; height: 8px; border-radius: 50%; background: var(--border);
+    }
     .journey-item.active::before { background: var(--blue); }
-    .journey-item-title { font-size: 0.78rem; font-weight: 500; color: var(--text); margin-bottom: 0.2rem; }
+    .journey-item-title { font-size: 0.78rem; font-weight: 500; margin-bottom: 0.2rem; }
     .journey-item.active .journey-item-title { color: var(--blue); }
     .journey-item-sub { font-size: 0.7rem; color: var(--muted); line-height: 1.4; }
-    .journey-line { position: absolute; left: 3.5px; top: 1rem; bottom: -1rem; width: 1px; background: var(--border); }
-    .preview-img { width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-top: 1.5rem; display: block; }
-    .transition-overlay { position: fixed; inset: 0; background: var(--bg); z-index: 500; opacity: 0; pointer-events: none; transition: opacity 0.5s; }
+    .journey-line {
+      position: absolute; left: 3.5px; top: 1rem;
+      bottom: -1rem; width: 1px; background: var(--border);
+    }
+
+    /* Result badge */
+    .result-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(0, 180, 168, 0.08);
+      border: 1px solid rgba(0, 180, 168, 0.25);
+      border-radius: 4px; padding: 0.5rem 0.85rem;
+      margin-top: 0.75rem; margin-bottom: 0.25rem;
+    }
+    .result-badge-text {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--blue);
+    }
+
+    /* Context callout */
+    .callout {
+      background: #f0faf9; border-left: 3px solid var(--blue);
+      border-radius: 0 6px 6px 0; padding: 1rem 1.25rem;
+      margin: 1rem 0; font-size: 0.82rem; color: var(--text);
+      line-height: 1.65; font-style: italic;
+    }
+
+    /* Transition */
+    .transition-overlay {
+      position: fixed; inset: 0; background: var(--bg);
+      z-index: 500; opacity: 0; pointer-events: none; transition: opacity 0.5s;
+    }
     .transition-overlay.fade-in { opacity: 1; pointer-events: all; }
-    @media (max-width: 800px) { .layout { grid-template-columns: 1fr; } .sidebar { display: none; } .pillar-grid { grid-template-columns: 1fr; } }
+
+    @media (max-width: 800px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .pillar-grid { grid-template-columns: 1fr; }
+      .round-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
   <a href="projects.html" class="back-btn" id="backBtn">← projects</a>
+
   <div class="hero">
-    <h1 class="hero-title">Triple R Strategy</h1>
-    <div class="hero-tag">TechStrat 2026 · 2nd / 45 teams · Harbour Pacific Credit Union</div>
+    <div class="hero-eyebrow">BizTech TechStrat 2026</div>
+    <h1 class="hero-title">CBS "New"s</h1>
+    <div class="hero-tag">UBC BizTech TechStrat 2026 · 2nd / 45 teams · Harbour Pacific Credit Union</div>
     <div class="hero-meta">
-      <div class="meta-item"><div class="meta-label">Role</div><div class="meta-value">Strategy &amp; Product Design</div></div>
-      <div class="meta-item"><div class="meta-label">Timeline</div><div class="meta-value">January 2026</div></div>
-      <div class="meta-item"><div class="meta-label">Collaborators</div><div class="meta-value">Jordan Lo, Angelo Giustino, Camille Santos</div></div>
-      <div class="meta-item"><div class="meta-label">Links</div><div class="meta-value"><a href="techstrat-prelims.pptx" target="_blank">Prelims Deck</a> · <a href="techstrat-finals.pptx" target="_blank">Finals Deck</a></div></div>
+      <div class="meta-item">
+        <div class="meta-label">Role</div>
+        <div class="meta-value">Strategy &amp; Product Design</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Timeline</div>
+        <div class="meta-value">February – March 2026</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Collaborators</div>
+        <div class="meta-value">Samantha Ng, Carter Jaquette</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Links</div>
+        <div class="meta-value">
+          <a href="techstrat-prelims.pptx" target="_blank">Prelims Deck</a>
+          &nbsp;·&nbsp;
+          <a href="techstrat-finals.pptx" target="_blank">Finals Deck</a>
+          &nbsp;·&nbsp;
+          <a href="BizTech_TechStrat_2026Case__1_.pdf" target="_blank">Prelims Case</a>
+          &nbsp;·&nbsp;
+          <a href="TechStrat_Case_Harbour_Pacific_Final__1_.pdf" target="_blank">Finals Case</a>
+        </div>
+      </div>
     </div>
   </div>
+
   <div class="layout">
     <div class="main">
+
+      <!-- The Competition -->
       <div class="section">
-        <div class="section-title">The Problem</div>
-        <p class="section-text">Harbour Pacific Credit Union faced a classic modernization dilemma: their legacy customers relied on familiar systems and in-person service, while younger members expected seamless digital experiences. A full technology overhaul risked losing trust. Doing nothing risked irrelevance. The challenge was to thread that needle -- modernize without alienating.</p>
-      </div>
-      <div class="section">
-        <div class="section-title">The Insight</div>
-        <p class="section-text">The solution wasn't to choose between legacy and modern -- it was to build a bridge. Credit unions have a trust advantage over big banks. The Triple R Strategy was designed to leverage that trust as a foundation for digital transformation, rather than sacrificing it in the name of efficiency.</p>
-      </div>
-      <div class="section">
-        <div class="section-title">The Solution</div>
-        <p class="section-text">A three-pillar framework -- Retain, Rebuild, Reach -- that sequences the modernization journey in a way that preserves existing member relationships while building the infrastructure and products needed to compete for the next generation.</p>
-        <div class="pillar-grid">
-          <div class="pillar-card"><div class="pillar-letter">R</div><div class="pillar-title">Retain</div><div class="pillar-text">Hybrid service models that preserve familiar touchpoints while introducing digital options gradually.</div></div>
-          <div class="pillar-card"><div class="pillar-letter">R</div><div class="pillar-title">Rebuild</div><div class="pillar-text">Phased core infrastructure modernization -- API-first architecture, cloud migration, data consolidation.</div></div>
-          <div class="pillar-card"><div class="pillar-letter">R</div><div class="pillar-title">Reach</div><div class="pillar-text">Mobile-first products and embedded finance partnerships to capture younger demographics.</div></div>
+        <div class="section-title">The Competition</div>
+        <p class="section-text">
+          TechStrat is UBC BizTech's annual technology strategy competition, bringing together 45 teams to tackle real-world problems at the intersection of technology and business. The format is two-stage: a preliminary round open to all teams, followed by a finals round for the top 12. Each stage involves a different company case, a tight deadline, and a live pitch to industry judges.
+        </p>
+        <div class="result-badge">
+          <span class="result-badge-text">🥈 2nd Place · 45 Teams</span>
         </div>
-        <img src="images/techstrat.webp" alt="Triple R Strategy" class="preview-img" />
       </div>
+
+      <!-- Preliminary Round -->
+      <div class="section">
+        <div class="section-title">Round One: TransLink &amp; Coast Mountain Bus Company</div>
+        <p class="section-text">
+          The preliminary case challenged teams to advise TransLink and Coast Mountain Bus Company on how to digitally enable their fleet electrification transition. With 22 battery-electric buses in operation and plans to scale to 462 by 2030, the core question was: which digital solutions should TransLink prioritize, and how should they be sequenced and embedded into operations to deliver measurable gains?
+        </p>
+        <p class="section-text" style="margin-top: 0.75rem;">
+          The challenge wasn't just about technology. It was about coordinating a system actively running 240 million transit journeys per year while simultaneously changing its infrastructure underneath. As the case put it, this was changing the engine at thirty thousand feet.
+        </p>
+
+        <div class="round-grid">
+          <div class="round-card">
+            <div class="round-card-label">The Problem</div>
+            <div class="round-card-title">Diesel-era operations can't run an electric depot</div>
+            <div class="round-card-text">BEBs require charging windows, power limits, and data-driven scheduling that the existing operational model was not built to handle at scale.</div>
+          </div>
+          <div class="round-card">
+            <div class="round-card-label">The Stakes</div>
+            <div class="round-card-title">$479M in fleet investment, a looming fiscal cliff</div>
+            <div class="round-card-text">Every dollar invested would need a clear line to service and efficiency outcomes. Scaling electrification on legacy processes would amplify the failures, not just the fleet.</div>
+          </div>
+          <div class="round-card">
+            <div class="round-card-label">Our Approach</div>
+            <div class="round-card-title">Build the data foundation first</div>
+            <div class="round-card-text">We recommended prioritizing telemetry and charging management as the foundational layer. Without reliable data capture, no advanced analytics or AI system would function correctly.</div>
+          </div>
+          <div class="round-card">
+            <div class="round-card-label">Key Insight</div>
+            <div class="round-card-title">Capacity comes from coordination, not hardware</div>
+            <div class="round-card-text">Charging uptime, yard management, and block scheduling are interdependent decisions. Value is unlocked when they are treated as one system, not a collection of separate tools.</div>
+          </div>
+        </div>
+
+        <div class="callout" style="margin-top: 1.5rem;">
+          The prelims pitch video was due at 11:59pm, right after our accounting midterm ran from 7 to 9pm. We had two hours to record and submit. There was no room to coast on the exam stress. We just had to keep going.
+        </div>
+      </div>
+
+      <!-- Finals Round -->
+      <div class="section">
+        <div class="section-title">Round Two: Harbour Pacific Credit Union</div>
+        <p class="section-text">
+          Making the top 12 meant a 24-hour sprint on a completely new case: Harbour Pacific Credit Union, a fictional BC institution running a 33-year-old COBOL mainframe core banking system called APEX-7, well past its designed lifespan of 15 years. The case framed it perfectly: this was changing the engine at thirty thousand feet. The plane cannot land. It cannot stop flying. The only option is to do the work correctly, in sequence, while operations continue.
+        </p>
+        <p class="section-text" style="margin-top: 0.75rem;">
+          The institution faced three converging pressures: a regulatory review expected within 12–18 months, fintech competitors eroding the younger member base, and a maintenance cost trajectory heading toward $8.7M annually within six years. The question wasn't whether to act. It was how.
+        </p>
+      </div>
+
+      <!-- The Solution -->
+      <div class="section">
+        <div class="section-title">The Solution: Rebuild, Reclaim, Reinforce</div>
+        <p class="section-text">
+          We recommended a three-pillar modernization strategy: Rebuild, Reclaim, Reinforce. The sequencing mattered. Rebuild creates the technical foundation. Reclaim turns that foundation into a visible win for members. Reinforce makes sure the institution can govern and sustain the change long after the project closes. None of it works without the others.
+        </p>
+        <div class="pillar-grid">
+          <div class="pillar-card">
+            <div class="pillar-letter">R</div>
+            <div class="pillar-title">Rebuild</div>
+            <div class="pillar-text">Migrate from APEX-7 to Meridian CoReady via a dual-mode interface: Core Mode preserves familiar APEX-aligned workflows for staff, Smart Mode unlocks real-time APIs. Both run through a shared API layer so Meridian is always the single source of truth.</div>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-letter">R</div>
+            <div class="pillar-title">Reclaim</div>
+            <div class="pillar-text">Reposition HPCU as members' primary daily financial interface through Beacon, a real-time multilingual mobile banking app. Built on the new core, Beacon enables instant transfers, international remittances, and multilingual support to win back the daily relationship fintechs had taken.</div>
+          </div>
+          <div class="pillar-card">
+            <div class="pillar-letter">R</div>
+            <div class="pillar-title">Reinforce</div>
+            <div class="pillar-text">Create a Digital Governance Officer role to act as liaison between HPCU leadership and the Board of Directors, translating technical complexity into governance language. Paired with an annual Internal Tech Health Assessment to track regulatory changes and risk.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Beacon -->
       <div class="section">
         <div class="section-title">Key Deliverable: Beacon</div>
-        <p class="section-text">The centrepiece recommendation was Beacon -- a multilingual mobile banking app serving Harbour Pacific's diverse member base. Supporting English, French, Spanish, Mandarin, and Punjabi, Beacon enables members to send money internationally, manage portfolios, and access all credit union services in one interface. Full UI mockups were presented with a concrete implementation roadmap.</p>
-      </div>
-      <div class="section">
-        <div class="section-title">Success Metrics</div>
-        <div class="north-star"><div class="ns-label">North Star Metric</div><div class="ns-value">Increase in digital adoption rate among members under 35 within 18 months</div></div>
+        <p class="section-text">
+          The centrepiece recommendation was Beacon, a multilingual mobile banking app built for Harbour Pacific's diverse member base. Supporting English, French, Spanish, Mandarin, and Punjabi, Beacon enables members to send money internationally, manage portfolios, and access all credit union services in one interface. We presented full UI mockups alongside a concrete implementation roadmap and vendor recommendation, weighing the trade-offs across Meridian Core Systems, NorthAxis Financial, and Continuum Banking Solutions.
+        </p>
+        <div class="north-star">
+          <div class="ns-label">Strategic Recommendation</div>
+          <div class="ns-value">Phase 2 CBS Modernization via Meridian Core Systems (CoReady): a phased strangler-fig migration that eliminates COBOL dependency without service disruption, paired with Beacon as the member-facing proof point.</div>
+        </div>
         <ul class="kpi-list">
-          <li>Reduction in in-branch transaction volume (target: 20% YoY)</li>
-          <li>Increase in mobile banking monthly active users</li>
-          <li>Net Promoter Score maintained above 60 during transition</li>
-          <li>Successful international transfer volume via Beacon in pilot</li>
+          <li>Elimination of COBOL talent dependency within a 36–48 month migration window</li>
+          <li>Real-Time Rail compatibility unlocked post-migration, addressing the core competitive gap</li>
+          <li>Beacon NPS tracked against retention of members under 45 as north star metric</li>
+          <li>Regulatory review satisfied through documented phase gates and transition risk management plan</li>
         </ul>
       </div>
+
+      <!-- My Contribution -->
+      <div class="section">
+        <div class="section-title">My Contribution</div>
+        <p class="section-text">
+          My primary deliverable for the finals was the UI mockups for both Rebuild and Reclaim. Designing these meant understanding not just what the interfaces needed to do, but why each design decision served the strategy.
+        </p>
+
+        <!-- Rebuild: Internal system video -->
+        <div style="margin-top: 1.5rem; margin-bottom: 0.6rem;">
+          <div style="font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); font-weight: 600; margin-bottom: 0.4rem;">Rebuild — Meridian dual-mode interface</div>
+          <p style="font-size: 0.82rem; color: var(--muted); line-height: 1.65; margin-bottom: 0.85rem;">Core Mode mirrors APEX-7 workflows so staff aren't hit with retraining shock mid-migration. Smart Mode exposes real-time API workflows for roles that need it. Both modes route through the same governed API layer to Meridian, so the single source of financial truth is never compromised.</p>
+          <video
+            src="internalsystem.mov"
+            controls
+            playsinline
+            style="width: 100%; border-radius: 8px; border: 1px solid var(--border); display: block; background: #000;"
+          ></video>
+          <div style="font-size: 0.62rem; color: var(--light); margin-top: 0.5rem;">Internal system walkthrough — Core Mode and Smart Mode</div>
+        </div>
+
+        <!-- Reclaim: Beacon screenshot -->
+        <div style="margin-top: 2rem;">
+          <div style="font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); font-weight: 600; margin-bottom: 0.4rem;">Reclaim — Beacon app mockups</div>
+          <p style="font-size: 0.82rem; color: var(--muted); line-height: 1.65; margin-bottom: 0.85rem;">Designed to win back the daily financial relationship from fintechs. Multilingual onboarding (English, French, Spanish, Mandarin, Punjabi), real-time international transfers with live exchange rates, and a portfolio dashboard. The design had to feel trustworthy and accessible to every segment of HPCU's membership, from long-term BC residents to recently arrived newcomers navigating a new financial system.</p>
+          <img
+            src="images/beacon-mockups.png"
+            alt="Beacon app mockups showing language selection, international transfer, and portfolio screens"
+            style="width: 100%; border-radius: 8px; border: 1px solid var(--border); display: block;"
+          />
+          <div style="font-size: 0.62rem; color: var(--light); margin-top: 0.5rem;">Beacon — language onboarding, international transfer (French UI), portfolio dashboard (French UI)</div>
+        </div>
+      </div>
+
+      <!-- Reflection -->
       <div class="section">
         <div class="section-title">Reflection</div>
-        <div class="reflection-card"><div class="reflection-title">What I Learned</div><div class="reflection-text">Credit unions aren't just smaller banks -- they're fundamentally different institutions built on community trust. Understanding that distinction changed how we framed every recommendation. The Triple R framework wasn't about catching up to fintech, it was about staying true to what makes credit unions valuable while building the infrastructure to survive.</div></div>
-        <div class="reflection-card"><div class="reflection-title">What I'd Do Differently</div><div class="reflection-text">I'd spend more time on the financial modelling behind the Beacon rollout. Our qualitative recommendations were strong but we could have been more precise about the cost of implementation versus the projected lift in member retention and acquisition.</div></div>
-        <div class="reflection-card"><div class="reflection-title">Grateful For</div><div class="reflection-text">Competing against 45 teams and placing 2nd reinforced that clear, opinionated strategy beats comprehensive but vague analysis. I'm grateful to have worked with teammates who pushed back when my thinking was too broad and forced me to get specific.</div></div>
+        <div class="reflection-card">
+          <div class="reflection-title">What I Learned</div>
+          <div class="reflection-text">
+            Credit unions aren't just smaller banks. They're fundamentally different institutions built on community trust. Understanding that distinction changed how we framed every recommendation. The Triple R framework wasn't about modernizing for its own sake. It was about finding the path that didn't force Harbour Pacific to choose between who they were and who they needed to become. That tension is the whole problem, and the best strategy holds both.
+          </div>
+        </div>
+        <div class="reflection-card">
+          <div class="reflection-title">On Time and Pressure</div>
+          <div class="reflection-text">
+            The prelims submission landed two hours after an accounting midterm. The finals pitch was the day before a finance midterm. What I learned is that you can't defer what matters just because something else is hard. The stress doesn't go away. You just have to move through it anyway. Learning to do everything at once isn't really about time management. It's about deciding that both things are worth doing and not letting one become an excuse for the other.
+          </div>
+        </div>
+        <div class="reflection-card">
+          <div class="reflection-title">Grateful For</div>
+          <div class="reflection-text">
+            I'm grateful I was asked to compete. Working with people who have more casing experience than I do forced me to raise my floor: the rigour of analysis, the precision of language, the confidence of recommendation. We lost a teammate along the way, and we kept going anyway. That made the 2nd place finish mean something beyond the result itself.
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-label">Competition Journey</div>
+
+      <div class="journey-item active">
+        <div class="journey-line"></div>
+        <div class="journey-item-title">Preliminary Case</div>
+        <div class="journey-item-sub">TransLink: swappable battery system + ChargeLine interface</div>
+      </div>
+      <div class="journey-item">
+        <div class="journey-line"></div>
+        <div class="journey-item-title">Prelims Pitch</div>
+        <div class="journey-item-sub">Video submission, 11:59pm deadline, post-midterm</div>
+      </div>
+      <div class="journey-item">
+        <div class="journey-line"></div>
+        <div class="journey-item-title">Top 12 Qualifier</div>
+        <div class="journey-item-sub">Advanced to finals round</div>
+      </div>
+      <div class="journey-item">
+        <div class="journey-line"></div>
+        <div class="journey-item-title">Finals Case</div>
+        <div class="journey-item-sub">24-hour sprint: Harbour Pacific Credit Union CBS modernization</div>
+      </div>
+      <div class="journey-item">
+        <div class="journey-line"></div>
+        <div class="journey-item-title">Beacon Concept</div>
+        <div class="journey-item-sub">Multilingual mobile banking app + vendor recommendation</div>
+      </div>
+      <div class="journey-item">
+        <div class="journey-item-title">2nd Place</div>
+        <div class="journey-item-sub">Out of 45 teams · TechStrat 2026</div>
+      </div>
+
+      <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+        <div class="sidebar-label">By the Numbers</div>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.5rem;">
+          <div>
+            <div style="font-size: 1.4rem; font-family: 'Instrument Serif', serif; font-style: italic; color: var(--navy); line-height: 1;">45</div>
+            <div style="font-size: 0.65rem; color: var(--muted);">competing teams</div>
+          </div>
+          <div>
+            <div style="font-size: 1.4rem; font-family: 'Instrument Serif', serif; font-style: italic; color: var(--navy); line-height: 1;">24</div>
+            <div style="font-size: 0.65rem; color: var(--muted);">hours for the finals case</div>
+          </div>
+          <div>
+            <div style="font-size: 1.4rem; font-family: 'Instrument Serif', serif; font-style: italic; color: var(--navy); line-height: 1;">2</div>
+            <div style="font-size: 0.65rem; color: var(--muted);">hours between midterm and submission</div>
+          </div>
+          <div>
+            <div style="font-size: 1.4rem; font-family: 'Instrument Serif', serif; font-style: italic; color: var(--navy); line-height: 1;">#2</div>
+            <div style="font-size: 0.65rem; color: var(--muted);">final placement</div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="sidebar">
-      <div class="sidebar-label">Strategy Journey</div>
-      <div class="journey-item active"><div class="journey-line"></div><div class="journey-item-title">Problem Discovery</div><div class="journey-item-sub">Member research and competitive landscape</div></div>
-      <div class="journey-item"><div class="journey-line"></div><div class="journey-item-title">Framework Design</div><div class="journey-item-sub">Triple R pillars defined</div></div>
-      <div class="journey-item"><div class="journey-line"></div><div class="journey-item-title">Beacon UI</div><div class="journey-item-sub">Product mockups and roadmap</div></div>
-      <div class="journey-item"><div class="journey-line"></div><div class="journey-item-title">Prelims Pitch</div><div class="journey-item-sub">Qualified for finals</div></div>
-      <div class="journey-item"><div class="journey-item-title">Finals Presentation</div><div class="journey-item-sub">2nd place out of 45 teams</div></div>
-    </div>
   </div>
+
   <div class="transition-overlay" id="transOverlay"></div>
+
   <script>
-    document.getElementById('backBtn').addEventListener('click', e => { e.preventDefault(); const o = document.getElementById('transOverlay'); o.classList.add('fade-in'); setTimeout(() => window.location.href = 'projects.html', 550); });
-    const o = document.getElementById('transOverlay'); o.style.opacity = '1'; o.style.transition = 'none'; o.style.pointerEvents = 'none';
-    requestAnimationFrame(() => setTimeout(() => { o.style.transition = 'opacity 0.6s'; o.style.opacity = '0'; }, 50));
+    document.getElementById('backBtn').addEventListener('click', e => {
+      e.preventDefault();
+      const o = document.getElementById('transOverlay');
+      o.classList.add('fade-in');
+      setTimeout(() => window.location.href = 'projects.html', 550);
+    });
+
+    const o = document.getElementById('transOverlay');
+    o.style.opacity = '1';
+    o.style.transition = 'none';
+    o.style.pointerEvents = 'none';
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        o.style.transition = 'opacity 0.6s';
+        o.style.opacity = '0';
+      }, 50);
+    });
   </script>
 </body>
 </html>
