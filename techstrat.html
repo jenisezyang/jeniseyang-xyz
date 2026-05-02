@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Triple R Strategy — Jenise Yang</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg: #f8f8f8; --text: #1a1a1a; --muted: #666; --light: #999; --border: #e5e5e5; --blue: #00b4a8; --navy: #1B3A6B; --surface: #fff; }
+    body { cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDMyIDI0Ij48cGF0aCBkPSJNMiw4IEwyLDIgTDgsMiIgc3Ryb2tlPSIjMWExYTJlIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0yNCwyIEwzMCwyIEwzMCw4IiBzdHJva2U9IiMxYTFhMmUiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTIsMTYgTDIsMjIgTDgsMjIiIHN0cm9rZT0iIzFhMWEyZSIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNMjQsMjIgTDMwLDIyIEwzMCwxNiIgc3Ryb2tlPSIjMWExYTJlIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTIiIHI9IjEuMiIgZmlsbD0iIzFhMWEyZSIvPjwvc3ZnPg==") 12 12, crosshair; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; }
+    .back-btn { position: fixed; top: 1.8rem; left: 2rem; z-index: 100; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); cursor: pointer; text-decoration: none; transition: color 0.2s; }
+    .back-btn:hover { color: var(--text); }
+    .hero { max-width: 1100px; margin: 0 auto; padding: 5rem 3rem 3rem; }
+    .hero-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 400; line-height: 1; margin-bottom: 0.5rem; color: var(--navy); }
+    .hero-tag { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .hero-meta { display: flex; gap: 3rem; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .meta-label { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--light); margin-bottom: 0.3rem; }
+    .meta-value { font-size: 0.8rem; color: var(--text); }
+    .meta-value a { color: var(--blue); text-decoration: none; }
+    .layout { max-width: 1100px; margin: 0 auto; padding: 0 3rem 6rem; display: grid; grid-template-columns: 1fr 280px; gap: 4rem; }
+    .section { margin-bottom: 3rem; }
+    .section-title { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.75rem; }
+    .section-text { font-size: 0.88rem; color: var(--text); line-height: 1.75; }
+    .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
+    .pillar-card { background: var(--navy); border-radius: 8px; padding: 1.5rem; color: white; text-align: center; }
+    .pillar-letter { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 3rem; font-weight: 400; color: #00f5e4; line-height: 1; margin-bottom: 0.5rem; }
+    .pillar-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .pillar-text { font-size: 0.75rem; opacity: 0.7; line-height: 1.5; }
+    .story-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1.25rem; margin-bottom: 1rem; }
+    .story-card p { font-size: 0.82rem; margin-bottom: 0.75rem; line-height: 1.5; }
+    .criteria-label { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--light); margin-bottom: 0.4rem; }
+    .criteria-list { list-style: none; }
+    .criteria-list li { font-size: 0.78rem; color: var(--muted); padding-left: 1rem; position: relative; margin-bottom: 0.2rem; }
+    .criteria-list li::before { content: '•'; position: absolute; left: 0; color: var(--blue); }
+    .north-star { background: var(--navy); border-radius: 8px; padding: 1.25rem 1.5rem; margin-top: 1rem; margin-bottom: 1rem; }
+    .ns-label { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 0.4rem; }
+    .ns-value { font-size: 0.95rem; font-weight: 600; color: white; line-height: 1.4; }
+    .kpi-list { list-style: none; }
+    .kpi-list li { font-size: 0.8rem; color: var(--muted); padding: 0.4rem 0; padding-left: 1.25rem; position: relative; border-bottom: 1px solid var(--border); }
+    .kpi-list li:last-child { border-bottom: none; }
+    .kpi-list li::before { content: '→'; position: absolute; left: 0; color: var(--blue); }
+    .reflection-card { background: var(--surface); border-left: 3px solid var(--blue); border-radius: 0 6px 6px 0; padding: 1.25rem 1.5rem; margin-bottom: 1rem; }
+    .reflection-title { font-size: 0.82rem; font-weight: 600; margin-bottom: 0.6rem; }
+    .reflection-text { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+    .sidebar { position: sticky; top: 5rem; }
+    .sidebar-label { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--light); margin-bottom: 1rem; }
+    .journey-item { position: relative; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+    .journey-item::before { content: ''; position: absolute; left: 0; top: 0.35rem; width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+    .journey-item.active::before { background: var(--blue); }
+    .journey-item-title { font-size: 0.78rem; font-weight: 500; color: var(--text); margin-bottom: 0.2rem; }
+    .journey-item.active .journey-item-title { color: var(--blue); }
+    .journey-item-sub { font-size: 0.7rem; color: var(--muted); line-height: 1.4; }
+    .journey-line { position: absolute; left: 3.5px; top: 1rem; bottom: -1rem; width: 1px; background: var(--border); }
+    .preview-img { width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-top: 1.5rem; display: block; }
+    .transition-overlay { position: fixed; inset: 0; background: var(--bg); z-index: 500; opacity: 0; pointer-events: none; transition: opacity 0.5s; }
+    .transition-overlay.fade-in { opacity: 1; pointer-events: all; }
+    @media (max-width: 800px) { .layout { grid-template-columns: 1fr; } .sidebar { display: none; } .pillar-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <a href="projects.html" class="back-btn" id="backBtn">← projects</a>
+  <div class="hero">
+    <h1 class="hero-title">Triple R Strategy</h1>
+    <div class="hero-tag">TechStrat 2026 · 2nd / 45 teams · Harbour Pacific Credit Union</div>
+    <div class="hero-meta">
+      <div class="meta-item"><div class="meta-label">Role</div><div class="meta-value">Strategy &amp; Product Design</div></div>
+      <div class="meta-item"><div class="meta-label">Timeline</div><div class="meta-value">January 2026</div></div>
+      <div class="meta-item"><div class="meta-label">Collaborators</div><div class="meta-value">Jordan Lo, Angelo Giustino, Camille Santos</div></div>
+      <div class="meta-item"><div class="meta-label">Links</div><div class="meta-value"><a href="techstrat-prelims.pptx" target="_blank">Prelims Deck</a> · <a href="techstrat-finals.pptx" target="_blank">Finals Deck</a></div></div>
+    </div>
+  </div>
+  <div class="layout">
+    <div class="main">
+      <div class="section">
+        <div class="section-title">The Problem</div>
+        <p class="section-text">Harbour Pacific Credit Union faced a classic modernization dilemma: their legacy customers relied on familiar systems and in-person service, while younger members expected seamless digital experiences. A full technology overhaul risked losing trust. Doing nothing risked irrelevance. The challenge was to thread that needle -- modernize without alienating.</p>
+      </div>
+      <div class="section">
+        <div class="section-title">The Insight</div>
+        <p class="section-text">The solution wasn't to choose between legacy and modern -- it was to build a bridge. Credit unions have a trust advantage over big banks. The Triple R Strategy was designed to leverage that trust as a foundation for digital transformation, rather than sacrificing it in the name of efficiency.</p>
+      </div>
+      <div class="section">
+        <div class="section-title">The Solution</div>
+        <p class="section-text">A three-pillar framework -- Retain, Rebuild, Reach -- that sequences the modernization journey in a way that preserves existing member relationships while building the infrastructure and products needed to compete for the next generation.</p>
+        <div class="pillar-grid">
+          <div class="pillar-card"><div class="pillar-letter">R</div><div class="pillar-title">Retain</div><div class="pillar-text">Hybrid service models that preserve familiar touchpoints while introducing digital options gradually.</div></div>
+          <div class="pillar-card"><div class="pillar-letter">R</div><div class="pillar-title">Rebuild</div><div class="pillar-text">Phased core infrastructure modernization -- API-first architecture, cloud migration, data consolidation.</div></div>
+          <div class="pillar-card"><div class="pillar-letter">R</div><div class="pillar-title">Reach</div><div class="pillar-text">Mobile-first products and embedded finance partnerships to capture younger demographics.</div></div>
+        </div>
+        <img src="images/techstrat.webp" alt="Triple R Strategy" class="preview-img" />
+      </div>
+      <div class="section">
+        <div class="section-title">Key Deliverable: Beacon</div>
+        <p class="section-text">The centrepiece recommendation was Beacon -- a multilingual mobile banking app serving Harbour Pacific's diverse member base. Supporting English, French, Spanish, Mandarin, and Punjabi, Beacon enables members to send money internationally, manage portfolios, and access all credit union services in one interface. Full UI mockups were presented with a concrete implementation roadmap.</p>
+      </div>
+      <div class="section">
+        <div class="section-title">Success Metrics</div>
+        <div class="north-star"><div class="ns-label">North Star Metric</div><div class="ns-value">Increase in digital adoption rate among members under 35 within 18 months</div></div>
+        <ul class="kpi-list">
+          <li>Reduction in in-branch transaction volume (target: 20% YoY)</li>
+          <li>Increase in mobile banking monthly active users</li>
+          <li>Net Promoter Score maintained above 60 during transition</li>
+          <li>Successful international transfer volume via Beacon in pilot</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Reflection</div>
+        <div class="reflection-card"><div class="reflection-title">What I Learned</div><div class="reflection-text">Credit unions aren't just smaller banks -- they're fundamentally different institutions built on community trust. Understanding that distinction changed how we framed every recommendation. The Triple R framework wasn't about catching up to fintech, it was about staying true to what makes credit unions valuable while building the infrastructure to survive.</div></div>
+        <div class="reflection-card"><div class="reflection-title">What I'd Do Differently</div><div class="reflection-text">I'd spend more time on the financial modelling behind the Beacon rollout. Our qualitative recommendations were strong but we could have been more precise about the cost of implementation versus the projected lift in member retention and acquisition.</div></div>
+        <div class="reflection-card"><div class="reflection-title">Grateful For</div><div class="reflection-text">Competing against 45 teams and placing 2nd reinforced that clear, opinionated strategy beats comprehensive but vague analysis. I'm grateful to have worked with teammates who pushed back when my thinking was too broad and forced me to get specific.</div></div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="sidebar-label">Strategy Journey</div>
+      <div class="journey-item active"><div class="journey-line"></div><div class="journey-item-title">Problem Discovery</div><div class="journey-item-sub">Member research and competitive landscape</div></div>
+      <div class="journey-item"><div class="journey-line"></div><div class="journey-item-title">Framework Design</div><div class="journey-item-sub">Triple R pillars defined</div></div>
+      <div class="journey-item"><div class="journey-line"></div><div class="journey-item-title">Beacon UI</div><div class="journey-item-sub">Product mockups and roadmap</div></div>
+      <div class="journey-item"><div class="journey-line"></div><div class="journey-item-title">Prelims Pitch</div><div class="journey-item-sub">Qualified for finals</div></div>
+      <div class="journey-item"><div class="journey-item-title">Finals Presentation</div><div class="journey-item-sub">2nd place out of 45 teams</div></div>
+    </div>
+  </div>
+  <div class="transition-overlay" id="transOverlay"></div>
+  <script>
+    document.getElementById('backBtn').addEventListener('click', e => { e.preventDefault(); const o = document.getElementById('transOverlay'); o.classList.add('fade-in'); setTimeout(() => window.location.href = 'projects.html', 550); });
+    const o = document.getElementById('transOverlay'); o.style.opacity = '1'; o.style.transition = 'none'; o.style.pointerEvents = 'none';
+    requestAnimationFrame(() => setTimeout(() => { o.style.transition = 'opacity 0.6s'; o.style.opacity = '0'; }, 50));
+  </script>
+</body>
+</html>

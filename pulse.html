@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pulse — Jenise Yang</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f8f8f8;
+      --text: #1a1a1a;
+      --muted: #666;
+      --light: #999;
+      --border: #e5e5e5;
+      --blue: #4A90D9;
+      --navy: #1B3A6B;
+      --accent: #4A90D9;
+      --surface: #fff;
+    }
+
+    body { cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDMyIDI0Ij48cGF0aCBkPSJNMiw4IEwyLDIgTDgsMiIgc3Ryb2tlPSIjMWExYTJlIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0yNCwyIEwzMCwyIEwzMCw4IiBzdHJva2U9IiMxYTFhMmUiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTIsMTYgTDIsMjIgTDgsMjIiIHN0cm9rZT0iIzFhMWEyZSIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNMjQsMjIgTDMwLDIyIEwzMCwxNiIgc3Ryb2tlPSIjMWExYTJlIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTIiIHI9IjEuMiIgZmlsbD0iIzFhMWEyZSIvPjwvc3ZnPg==") 12 12, crosshair; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; }
+
+    /* PAGE WRAP */
+    .page-wrap { max-width: 900px; margin: 0 auto; padding: 0 4rem; }
+
+    /* BACK */
+    .back-btn { position: fixed; top: 1.8rem; left: 2rem; z-index: 100; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); cursor: pointer; text-decoration: none; transition: color 0.2s; }
+    .back-btn:hover { color: var(--text); }
+
+    /* HERO */
+    .hero { padding: 3.5rem 0 2rem; }
+
+    .hero-title {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      color: var(--navy);
+    }
+
+    .hero-tag { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
+
+    .hero-meta { display: flex; gap: 3rem; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .meta-item { }
+    .meta-label { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--light); margin-bottom: 0.3rem; }
+    .meta-value { font-size: 0.8rem; color: var(--text); }
+    .meta-value a { color: var(--blue); text-decoration: none; }
+    .meta-value a:hover { text-decoration: underline; }
+
+    /* LAYOUT */
+    .layout { padding: 0 0 6rem; min-width: 0; }
+
+    /* MAIN CONTENT */
+    .main { padding-top: 1rem; }
+
+    .section { margin-bottom: 3.5rem; }
+
+    .section-title {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-text { font-size: 0.88rem; color: var(--text); line-height: 1.75; }
+
+    /* FEATURE CARDS */
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
+    .feature-card { background: var(--navy); border-radius: 8px; padding: 1.25rem; color: white; }
+    .feature-icon { font-size: 1.1rem; margin-bottom: 0.6rem; }
+    .feature-title { font-size: 0.78rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .feature-text { font-size: 0.72rem; opacity: 0.7; line-height: 1.5; }
+
+    /* DASHBOARD SCREENSHOT */
+    .dashboard-img { width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-top: 1.5rem; display: block; }
+
+    /* USER STORIES */
+    .story-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1.25rem; margin-bottom: 1rem; }
+    .story-card p { font-size: 0.82rem; color: var(--text); margin-bottom: 0.75rem; line-height: 1.5; }
+    .criteria-label { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--light); margin-bottom: 0.4rem; }
+    .criteria-list { list-style: none; }
+    .criteria-list li { font-size: 0.78rem; color: var(--muted); padding-left: 1rem; position: relative; margin-bottom: 0.2rem; }
+    .criteria-list li::before { content: '•'; position: absolute; left: 0; color: var(--blue); }
+
+    /* TABLE */
+    .req-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.78rem; }
+    .req-table th { text-align: left; padding: 0.5rem 0.75rem; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); border-bottom: 1px solid var(--border); }
+    .req-table td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); color: var(--text); }
+    .req-table tr:last-child td { border-bottom: none; }
+    .priority { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 3px; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.05em; }
+    .p0 { background: rgba(74,144,217,0.12); color: #1B3A6B; }
+    .p1 { background: rgba(74,144,217,0.06); color: #4A90D9; }
+    .p2 { background: rgba(0,0,0,0.04); color: var(--muted); }
+
+    /* NON-FUNCTIONAL */
+    .nfr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1rem; }
+    .nfr-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1rem; }
+    .nfr-label { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.3rem; }
+    .nfr-value { font-size: 0.8rem; color: var(--text); }
+
+    /* NORTH STAR */
+    .north-star { background: var(--navy); border-radius: 8px; padding: 1.25rem 1.5rem; margin-top: 1rem; margin-bottom: 1rem; }
+    .ns-label { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 0.4rem; }
+    .ns-value { font-size: 0.95rem; font-weight: 600; color: white; line-height: 1.4; }
+
+    .kpi-list { list-style: none; margin-top: 0.5rem; }
+    .kpi-list li { font-size: 0.8rem; color: var(--muted); padding: 0.4rem 0; padding-left: 1.25rem; position: relative; border-bottom: 1px solid var(--border); }
+    .kpi-list li:last-child { border-bottom: none; }
+    .kpi-list li::before { content: '→'; position: absolute; left: 0; color: var(--blue); }
+
+    /* RISKS */
+    .risk-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.78rem; }
+    .risk-table th { text-align: left; padding: 0.5rem 0.75rem; font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--light); border-bottom: 1px solid var(--border); }
+    .risk-table td { padding: 0.7rem 0.75rem; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: top; }
+    .risk-table tr:last-child td { border-bottom: none; }
+    .risk-badge { display: inline-block; padding: 0.15rem 0.5rem; border-radius: 3px; font-size: 0.6rem; font-weight: 600; }
+    .high   { background: rgba(239,68,68,0.1);  color: #dc2626; }
+    .medium { background: rgba(245,158,11,0.1); color: #d97706; }
+    .low    { background: rgba(34,197,94,0.1);  color: #16a34a; }
+
+    /* REFLECTION */
+    .reflection-card { background: var(--surface); border-left: 3px solid var(--blue); border-radius: 0 6px 6px 0; padding: 1.25rem 1.5rem; margin-bottom: 1rem; }
+    .reflection-title { font-size: 0.82rem; font-weight: 600; margin-bottom: 0.6rem; color: var(--text); }
+    .reflection-text { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+
+    @media (max-width: 600px) {
+      .page-wrap { padding: 0 1.5rem; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .nfr-grid { grid-template-columns: 1fr; }
+    }
+
+
+    .chart-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .chart-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .chart-sub {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .chart-legend {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 0.72rem;
+      color: var(--text);
+    }
+
+    .legend-dot {
+      width: 12px; height: 12px;
+      border-radius: 2px;
+      background: var(--navy);
+      flex-shrink: 0;
+    }
+
+    .legend-line {
+      width: 20px;
+      height: 2px;
+      background: #4A90D9;
+      flex-shrink: 0;
+    }
+
+    .legend-label { color: var(--muted); }
+
+    .chart-wrap { width: 100%; overflow: hidden; }
+
+    /* TRANSITION */
+    .transition-overlay { position: fixed; inset: 0; background: var(--bg); z-index: 500; opacity: 0; pointer-events: none; transition: opacity 0.5s; }
+    .transition-overlay.fade-in { opacity: 1; pointer-events: all; }
+  </style>
+</head>
+<body>
+  <a href="projects.html" class="back-btn" id="backBtn">← projects</a>
+
+  <div class="page-wrap">
+    <div class="hero">
+      <h1 class="hero-title">Pulse</h1>
+      <div class="hero-tag">ProduHacks 2026 · 1st / 30 teams · Real-time EMS-to-hospital triage platform</div>
+      <div class="hero-meta">
+        <div class="meta-item">
+          <div class="meta-label">Role</div>
+          <div class="meta-value">Product Strategy &amp; Pitch Design</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Timeline</div>
+          <div class="meta-value">March 2026</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Collaborators</div>
+          <div class="meta-value">Jordan Lo, Angelo Giustino, Selima Yang</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Links</div>
+          <div class="meta-value">
+            <a href="pulse.pdf" target="_blank">Deck</a> ·
+            <a href="https://devpost.com/software/pulse-ql3gok" target="_blank">Devpost</a> ·
+            <a href="https://github.com/angelogiu/PULSE" target="_blank">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div><!-- /hero -->
+
+    <div class="content-row">
+      <div class="layout">
+        <div class="main">
+
+      <div class="section" id="section-problem">
+        <div class="section-title">The Problem</div>
+        <p class="section-text">Every year, critical minutes are lost between the moment a patient is picked up by an ambulance and the moment they receive treatment at the hospital. ER teams are blind until the ambulance arrives: no vitals, no context, no time to prepare. Data collected in the ambulance stays in the ambulance. Paramedics relay information over radio while keeping the patient alive. Handoffs are rushed, incomplete, and missing the details that matter. Every minute of delay increases mortality risk.</p>
+
+        <div class="chart-container" style="margin-top: 1rem;">
+        <div class="chart-title">Every minute of delay increases mortality risk</div>
+        <div class="chart-sub">+7.5% mortality risk per 30-minute delay</div>
+        <div class="chart-legend">
+          <span class="legend-dot"></span><span class="legend-label">Relative mortality risk</span>
+          <span class="legend-line"></span><span class="legend-label">90-min gold standard</span>
+        </div>
+        <div class="chart-wrap">
+          <svg viewBox="0 0 600 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+            <!-- Grid lines -->
+            <line x1="60" y1="20" x2="580" y2="20" stroke="#e5e5e5" stroke-width="1"/>
+            <line x1="60" y1="57" x2="580" y2="57" stroke="#e5e5e5" stroke-width="1"/>
+            <line x1="60" y1="94" x2="580" y2="94" stroke="#e5e5e5" stroke-width="1"/>
+            <line x1="60" y1="131" x2="580" y2="131" stroke="#e5e5e5" stroke-width="1"/>
+            <line x1="60" y1="168" x2="580" y2="168" stroke="#e5e5e5" stroke-width="1"/>
+            <line x1="60" y1="205" x2="580" y2="205" stroke="#e5e5e5" stroke-width="1"/>
+            <line x1="60" y1="242" x2="580" y2="242" stroke="#e5e5e5" stroke-width="1"/>
+            <!-- Y axis -->
+            <line x1="60" y1="20" x2="60" y2="242" stroke="#e5e5e5" stroke-width="1"/>
+            <!-- Y labels -->
+            <text x="52" y="24" text-anchor="end" font-size="11" fill="#999" font-family="Inter,sans-serif">1.8x</text>
+            <text x="52" y="61" text-anchor="end" font-size="11" fill="#999" font-family="Inter,sans-serif">1.6x</text>
+            <text x="52" y="98" text-anchor="end" font-size="11" fill="#999" font-family="Inter,sans-serif">1.5x</text>
+            <text x="52" y="135" text-anchor="end" font-size="11" fill="#999" font-family="Inter,sans-serif">1.4x</text>
+            <text x="52" y="172" text-anchor="end" font-size="11" fill="#999" font-family="Inter,sans-serif">1.3x</text>
+            <text x="52" y="209" text-anchor="end" font-size="11" fill="#999" font-family="Inter,sans-serif">1.2x</text>
+            <text x="52" y="246" text-anchor="end" font-size="11" fill="#999" font-family="Inter,sans-serif">0.9x</text>
+            <!-- Y axis label -->
+            <text transform="rotate(-90)" x="-130" y="14" text-anchor="middle" font-size="11" fill="#999" font-family="Inter,sans-serif">Relative mortality risk</text>
+            <!-- Area fill -->
+            <path d="M 80 232 C 80 232 164 218 248 196 S 332 168 416 140 S 500 98 564 61 L 564 242 L 80 242 Z"
+                  fill="rgba(27,58,107,0.08)" />
+            <!-- 90-min gold standard vertical line -->
+            <line x1="416" y1="20" x2="416" y2="242" stroke="#4A90D9" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.5"/>
+            <!-- Main curve -->
+            <path d="M 80 232 C 120 228 164 218 248 196 S 332 168 416 140 S 500 98 564 61"
+                  fill="none" stroke="#1B3A6B" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Data points -->
+            <circle cx="80"  cy="232" r="5" fill="#1B3A6B"/>
+            <circle cx="164" cy="218" r="5" fill="#1B3A6B"/>
+            <circle cx="248" cy="196" r="5" fill="#1B3A6B"/>
+            <circle cx="416" cy="140" r="5" fill="#1B3A6B"/>
+            <circle cx="500" cy="98"  r="5" fill="#1B3A6B"/>
+            <circle cx="564" cy="61"  r="5" fill="#1B3A6B"/>
+            <!-- X labels -->
+            <text x="80"  y="262" text-anchor="middle" font-size="11" fill="#999" font-family="Inter,sans-serif">0</text>
+            <text x="164" y="262" text-anchor="middle" font-size="11" fill="#999" font-family="Inter,sans-serif">30</text>
+            <text x="248" y="262" text-anchor="middle" font-size="11" fill="#999" font-family="Inter,sans-serif">60</text>
+            <text x="332" y="262" text-anchor="middle" font-size="11" fill="#999" font-family="Inter,sans-serif">90</text>
+            <text x="416" y="262" text-anchor="middle" font-size="11" fill="#999" font-family="Inter,sans-serif">120</text>
+            <text x="500" y="262" text-anchor="middle" font-size="11" fill="#999" font-family="Inter,sans-serif">150</text>
+            <!-- X axis label -->
+            <text x="322" y="278" text-anchor="middle" font-size="11" fill="#999" font-family="Inter,sans-serif">Door-to-balloon time (minutes)</text>
+          </svg>
+        </div>
+      </div><!-- /section-problem -->
+
+      <div class="section" id="section-insight">
+        <div class="section-title">The Insight</div>
+        <p class="section-text">The gap between ambulance pickup and hospital arrival doesn't have to be wasted. It can instead be turned into preparation time. If hospitals knew what was coming, they could be ready the moment the patient arrived, ensuring a smoother healthcare service. 7 minutes of dead transit time, turned into active preparation time.</p>
+      </div>
+
+      <div class="section" id="section-solution">
+        <div class="section-title">The Solution</div>
+        <p class="section-text">Pulse connects EMS cameras directly to a hospital ER dashboard. As the ambulance travels, cameras scan patient vitals screens and stream the data in real time. This gives doctors live vitals, risk scores and condition insights before the patient arrives.</p>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <div class="feature-icon">📡</div>
+            <div class="feature-title">Live Vitals Feed</div>
+            <div class="feature-text">Real-time readings extracted via OCR from ambulance monitor screens, streamed to the ER dashboard as the ambulance moves.</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🤖</div>
+            <div class="feature-title">AI Clinical Briefing</div>
+            <div class="feature-text">Plain-language patient summary, ranked differential diagnosis and context, generated from structured vitals and ready before arrival.</div>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">✅</div>
+            <div class="feature-title">Preparation Checklist</div>
+            <div class="feature-text">Auto-generated action items: meds to stage, equipment to ready, specialists to alert, all tailored to the incoming patient's data.</div>
+          </div>
+        </div>
+
+        <img src="images/pulse.avif" alt="Pulse dashboard" class="dashboard-img" />
+      </div>
+
+      <div class="section" id="section-stories">
+        <div class="section-title">User Stories</div>
+        <div class="story-card">
+          <p>As Dr. Sarah Chen, I want to see a patient's condition before arrival so I can prepare treatment in advance.</p>
+          <div class="criteria-label">Acceptance Criteria</div>
+          <ul class="criteria-list">
+            <li>Live vitals visible before arrival</li>
+            <li>AI summary generated automatically</li>
+            <li>Critical alerts triggered in real time</li>
+          </ul>
+        </div>
+        <div class="story-card">
+          <p>As Alex Martinez, I want a preparation checklist so I can set up equipment before the patient arrives.</p>
+          <div class="criteria-label">Acceptance Criteria</div>
+          <ul class="criteria-list">
+            <li>Checklist updates dynamically</li>
+            <li>Prep steps are clear and actionable</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section" id="section-functional">
+        <div class="section-title">Functional Requirements</div>
+        <table class="req-table">
+          <thead>
+            <tr><th>Feature</th><th>Priority</th><th>Description</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Data Ingestion</td><td><span class="priority p0">P0</span></td><td>Connect to EMS monitoring devices</td></tr>
+            <tr><td>Data Streaming</td><td><span class="priority p0">P0</span></td><td>Real-time transmission</td></tr>
+            <tr><td>AI Engine</td><td><span class="priority p0">P0</span></td><td>Generate summaries and diagnoses</td></tr>
+            <tr><td>Dashboard UI</td><td><span class="priority p0">P0</span></td><td>Live ER interface with updates</td></tr>
+            <tr><td>Alerts System</td><td><span class="priority p1">P1</span></td><td>Trigger high-risk alerts</td></tr>
+            <tr><td>Medical Records</td><td><span class="priority p1">P1</span></td><td>Integrate patient history</td></tr>
+            <tr><td>Logging</td><td><span class="priority p2">P2</span></td><td>Store session data</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <div class="section-title">Non-Functional Requirements</div>
+        <div class="nfr-grid">
+          <div class="nfr-card"><div class="nfr-label">Latency</div><div class="nfr-value">10 seconds max</div></div>
+          <div class="nfr-card"><div class="nfr-label">Reliability</div><div class="nfr-value">99.9% uptime</div></div>
+          <div class="nfr-card"><div class="nfr-label">Security</div><div class="nfr-value">HIPAA / PIPEDA compliant</div></div>
+          <div class="nfr-card"><div class="nfr-label">Scalability</div><div class="nfr-value">Multi-hospital and multi-ambulance support</div></div>
+          <div class="nfr-card"><div class="nfr-label">Usability</div><div class="nfr-value">Interpretable under high stress</div></div>
+        </div>
+      </div>
+
+      <div class="section" id="section-metrics">
+        <div class="section-title">Success Metrics</div>
+        <div class="north-star">
+          <div class="ns-label">North Star Metric</div>
+          <div class="ns-value">Reduction in time-to-treatment for critical patients</div>
+        </div>
+        <ul class="kpi-list">
+          <li>Decrease in time from when a patient arrives to when treatment starts (door to balloon)</li>
+          <li>Decrease in time it takes doctors to decide what's wrong and what to do</li>
+          <li>Increase in number of times the ER is fully ready before the patient arrives</li>
+          <li>Increase in number of times the AI's suggestions are correct</li>
+        </ul>
+      </div>
+
+      <div class="section" id="section-risks">
+        <div class="section-title">Risks &amp; Mitigations</div>
+        <table class="risk-table">
+          <thead>
+            <tr><th>Risk</th><th>Likelihood</th><th>Impact</th><th>Mitigation</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Poor cellular connectivity or offline areas</td>
+              <td><span class="risk-badge medium">Medium</span></td>
+              <td><span class="risk-badge high">High</span></td>
+              <td>Fall back to a direct voice or video call if the state of the patient worsens.</td>
+            </tr>
+            <tr>
+              <td>Camera misread or AI generates incorrect diagnosis</td>
+              <td><span class="risk-badge low">Low</span></td>
+              <td><span class="risk-badge high">High</span></td>
+              <td>Multiple specialized AI agents cross validate all scanned values against each other.</td>
+            </tr>
+            <tr>
+              <td>Patient data intercepted during transmission</td>
+              <td><span class="risk-badge low">Low</span></td>
+              <td><span class="risk-badge high">High</span></td>
+              <td>All data is encrypted end-to-end. System is designed to comply with healthcare data privacy standards.</td>
+            </tr>
+            <tr>
+              <td>Delayed ER dashboard refresh causes physicians to act on outdated vitals</td>
+              <td><span class="risk-badge medium">Medium</span></td>
+              <td><span class="risk-badge medium">Medium</span></td>
+              <td>Dashboard displays a live timestamp and indicator on the data points.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section" id="section-reflection">
+        <div class="section-title">Reflection</div>
+        <div class="reflection-card">
+          <div class="reflection-title">What I Learned</div>
+          <div class="reflection-text">Before Pulse, I thought of product features as things you pick up if they fit, optional additions to something that already exists. Building this PRD changed that completely. Every feature we scoped had a specific problem behind it, a real user frustrated by a real gap. The P0s weren't arbitrary, they were the minimum needed to make the core promise true. That shift in perspective is something I'll carry into every product decision I make going forward.</div>
+        </div>
+        <div class="reflection-card">
+          <div class="reflection-title">What I'd Do Differently</div>
+          <div class="reflection-text">Our team came in with very different ideas of what we wanted to build and what winning looked like. That tension was productive in some ways but also meant we spent time questioning each other's choices instead of building on them. I'd invest more upfront in alignment, not consensus, but a shared definition of what success looks like before anyone starts building.</div>
+        </div>
+        <div class="reflection-card">
+          <div class="reflection-title">Grateful For</div>
+          <div class="reflection-text">I'm eternally grateful to have worked with some of the most brilliant people I've ever met. Watching how they approached problems and their mindset throughout the entire process was genuinely insightful. I learned more in those 48 hours than I would have had I stuck with the same familiar faces.</div>
+        </div>
+      </div><!-- /section-reflection -->
+
+      </div><!-- /main -->
+      </div><!-- /layout -->
+    </div><!-- /page-wrap -->
+
+  <div class="transition-overlay" id="transOverlay"></div>
+  <script>
+    document.getElementById('backBtn').addEventListener('click', e => {
+      e.preventDefault();
+      const o = document.getElementById('transOverlay');
+      o.classList.add('fade-in');
+      setTimeout(() => window.location.href = 'projects.html', 550);
+    });
+    const o = document.getElementById('transOverlay');
+    o.style.opacity = '1'; o.style.transition = 'none'; o.style.pointerEvents = 'none';
+    requestAnimationFrame(() => setTimeout(() => { o.style.transition = 'opacity 0.6s'; o.style.opacity = '0'; }, 50));
+  </script>
+</body>
+</html>

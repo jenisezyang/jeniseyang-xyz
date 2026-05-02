@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ACE Strategy — Jenise Yang</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg: #f8f8f8; --text: #1a1a1a; --muted: #666; --light: #999; --border: #e5e5e5; --blue: #22c55e; --navy: #1B3A6B; --surface: #fff; }
+    body { cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDMyIDI0Ij48cGF0aCBkPSJNMiw4IEwyLDIgTDgsMiIgc3Ryb2tlPSIjMWExYTJlIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0yNCwyIEwzMCwyIEwzMCw4IiBzdHJva2U9IiMxYTFhMmUiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTIsMTYgTDIsMjIgTDgsMjIiIHN0cm9rZT0iIzFhMWEyZSIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNMjQsMjIgTDMwLDIyIEwzMCwxNiIgc3Ryb2tlPSIjMWExYTJlIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTIiIHI9IjEuMiIgZmlsbD0iIzFhMWEyZSIvPjwvc3ZnPg==") 12 12, crosshair; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; }
+    .back-btn { position: fixed; top: 1.8rem; left: 2rem; z-index: 100; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); cursor: pointer; text-decoration: none; transition: color 0.2s; }
+    .back-btn:hover { color: var(--text); }
+    .hero { max-width: 1100px; margin: 0 auto; padding: 5rem 3rem 3rem; }
+    .hero-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 400; line-height: 1; margin-bottom: 0.5rem; color: var(--navy); }
+    .hero-tag { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .hero-meta { display: flex; gap: 3rem; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .meta-label { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--light); margin-bottom: 0.3rem; }
+    .meta-value { font-size: 0.8rem; color: var(--text); }
+    .meta-value a { color: var(--blue); text-decoration: none; }
+    .layout { max-width: 1100px; margin: 0 auto; padding: 0 3rem 6rem; display: grid; grid-template-columns: 1fr 280px; gap: 4rem; }
+    .section { margin-bottom: 3rem; }
+    .section-title { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.75rem; }
+    .section-text { font-size: 0.88rem; color: var(--text); line-height: 1.75; }
+    .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
+    .pillar-card { border-radius: 8px; padding: 1.5rem; text-align: center; color: white; }
+    .p1 { background: #16a34a; } .p2 { background: #1d4ed8; } .p3 { background: #7c3aed; }
+    .pillar-num { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 3rem; font-weight: 400; line-height: 1; margin-bottom: 0.5rem; opacity: 0.8; }
+    .pillar-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .pillar-text { font-size: 0.75rem; opacity: 0.8; line-height: 1.5; }
+    .preview-img { width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-top: 1.5rem; display: block; }
+    .north-star { background: var(--navy); border-radius: 8px; padding: 1.25rem 1.5rem; margin-top: 1rem; margin-bottom: 1rem; }
+    .ns-label { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 0.4rem; }
+    .ns-value { font-size: 0.95rem; font-weight: 600; color: white; line-height: 1.4; }
+    .kpi-list { list-style: none; }
+    .kpi-list li { font-size: 0.8rem; color: var(--muted); padding: 0.4rem 0; padding-left: 1.25rem; position: relative; border-bottom: 1px solid var(--border); }
+    .kpi-list li:last-child { border-bottom: none; }
+    .kpi-list li::before { content: '→'; position: absolute; left: 0; color: var(--blue); }
+    .reflection-card { background: var(--surface); border-left: 3px solid var(--blue); border-radius: 0 6px 6px 0; padding: 1.25rem 1.5rem; margin-bottom: 1rem; }
+    .reflection-title { font-size: 0.82rem; font-weight: 600; margin-bottom: 0.6rem; }
+    .reflection-text { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+    .sidebar { position: sticky; top: 5rem; }
+    .sidebar-label { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--light); margin-bottom: 1rem; }
+    .journey-item { position: relative; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+    .journey-item::before { content: ''; position: absolute; left: 0; top: 0.35rem; width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+    .journey-item.active::before { background: var(--blue); }
+    .journey-item-title { font-size: 0.78rem; font-weight: 500; margin-bottom: 0.2rem; }
+    .journey-item.active .journey-item-title { color: var(--blue); }
+    .journey-item-sub { font-size: 0.7rem; color: var(--muted); line-height: 1.4; }
+    .journey-line { position: absolute; left: 3.5px; top: 1rem; bottom: -1rem; width: 1px; background: var(--border); }
+    .transition-overlay { position: fixed; inset: 0; background: var(--bg); z-index: 500; opacity: 0; pointer-events: none; transition: opacity 0.5s; }
+    .transition-overlay.fade-in { opacity: 1; pointer-events: all; }
+    @media (max-width: 800px) { .layout { grid-template-columns: 1fr; } .sidebar { display: none; } .pillar-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <a href="projects.html" class="back-btn" id="backBtn">← projects</a>
+  <div class="hero">
+    <h1 class="hero-title">ACE Strategy</h1>
+    <div class="hero-tag">UBCMA x TELUS Marketing Strategy Challenge · 1st / 15 teams</div>
+    <div class="hero-meta">
+      <div class="meta-item"><div class="meta-label">Role</div><div class="meta-value">Marketing Strategy &amp; Presentation</div></div>
+      <div class="meta-item"><div class="meta-label">Timeline</div><div class="meta-value">October 2025</div></div>
+      <div class="meta-item"><div class="meta-label">Links</div><div class="meta-value"><a href="ace.pptx" target="_blank">Full Deck</a></div></div>
+    </div>
+  </div>
+  <div class="layout">
+    <div class="main">
+      <div class="section">
+        <div class="section-title">The Problem</div>
+        <p class="section-text">TELUS had deployed 5G infrastructure across Canada but faced a significant adoption gap. Consumers didn't understand the tangible benefits beyond faster speeds, and businesses hadn't been given a compelling reason to upgrade. Awareness wasn't the problem -- relevance was. 5G needed a story that people could feel, not just understand.</p>
+      </div>
+      <div class="section">
+        <div class="section-title">The Insight</div>
+        <p class="section-text">The best way to drive 5G adoption wasn't to explain the technology -- it was to demonstrate it in contexts people already cared about. Real-world partnerships and physical experiences would create the emotional connection that advertising alone couldn't.</p>
+      </div>
+      <div class="section">
+        <div class="section-title">The Solution: ACE</div>
+        <p class="section-text">A three-pillar go-to-market strategy -- Accelerate, Collaborate, Educate -- sequencing reach, proof, and understanding in a way that drives sustainable adoption across both consumer and business segments.</p>
+        <div class="pillar-grid">
+          <div class="pillar-card p1"><div class="pillar-num">1</div><div class="pillar-title">Accelerate</div><div class="pillar-text">Targeted ads to engage community segments and boost sales through hyperlocal digital campaigns and incentive programs.</div></div>
+          <div class="pillar-card p2"><div class="pillar-num">2</div><div class="pillar-title">Collaborate</div><div class="pillar-text">Partner with Uber Eats for 5G delivery innovations, showcasing real-world latency advantages in high-visibility contexts.</div></div>
+          <div class="pillar-card p3"><div class="pillar-num">3</div><div class="pillar-title">Educate</div><div class="pillar-text">Pop-up interactive experiences to showcase 5G benefits and drive engagement -- making the invisible visible.</div></div>
+        </div>
+        <img src="images/ace.avif" alt="ACE Strategy" class="preview-img" />
+      </div>
+      <div class="section">
+        <div class="section-title">Success Metrics</div>
+        <div class="north-star"><div class="ns-label">North Star Metric</div><div class="ns-value">Increase in 5G plan upgrades among consumers aged 18-35 within 6 months of campaign launch</div></div>
+        <ul class="kpi-list">
+          <li>5G upgrade conversion rate from Uber Eats partnership campaign</li>
+          <li>Foot traffic and dwell time at pop-up experience activations</li>
+          <li>Aided brand awareness of TELUS 5G among target demographic</li>
+          <li>Net Promoter Score among participants post-activation</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Reflection</div>
+        <div class="reflection-card"><div class="reflection-title">What I Learned</div><div class="reflection-text">Marketing strategy is most powerful when it's built around behaviour change, not awareness. The Uber Eats partnership wasn't just a creative idea -- it was a behaviour change mechanism. People would experience 5G latency in a context they already use daily. That's what made it land with the judges and what I'll carry into every strategy problem I tackle.</div></div>
+        <div class="reflection-card"><div class="reflection-title">What I'd Do Differently</div><div class="reflection-text">I'd stress-test the financial modelling on the pop-up activations earlier. The concept was strong but we could have been more specific about cost per activation and the expected conversion lift to make the ROI case airtight.</div></div>
+        <div class="reflection-card"><div class="reflection-title">Grateful For</div><div class="reflection-text">Winning this one felt different because it was the most consumer-facing strategy I'd worked on. I'm grateful for a team that pushed the creative work as hard as the analytical work. The best strategies are both rigorous and interesting, and this one was.</div></div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="sidebar-label">Strategy Journey</div>
+      <div class="journey-item active"><div class="journey-line"></div><div class="journey-item-title">Market Research</div><div class="journey-item-sub">5G adoption landscape analysis</div></div>
+      <div class="journey-item"><div class="journey-line"></div><div class="journey-item-title">ACE Framework</div><div class="journey-item-sub">Three-pillar strategy designed</div></div>
+      <div class="journey-item"><div class="journey-line"></div><div class="journey-item-title">Uber Eats Partnership</div><div class="journey-item-sub">Collaboration pillar developed</div></div>
+      <div class="journey-item"><div class="journey-item-title">Competition Win</div><div class="journey-item-sub">1st place out of 15 teams</div></div>
+    </div>
+  </div>
+  <div class="transition-overlay" id="transOverlay"></div>
+  <script>
+    document.getElementById('backBtn').addEventListener('click', e => { e.preventDefault(); const o = document.getElementById('transOverlay'); o.classList.add('fade-in'); setTimeout(() => window.location.href = 'projects.html', 550); });
+    const o = document.getElementById('transOverlay'); o.style.opacity = '1'; o.style.transition = 'none'; o.style.pointerEvents = 'none';
+    requestAnimationFrame(() => setTimeout(() => { o.style.transition = 'opacity 0.6s'; o.style.opacity = '0'; }, 50));
+  </script>
+</body>
+</html>

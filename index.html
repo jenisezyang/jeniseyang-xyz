@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jenise Yang</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0614; overflow: hidden; font-family: 'Inter', sans-serif; width: 100vw; height: 100vh; cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIzIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC45Ii8+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIwLjUiIG9wYWNpdHk9IjAuNCIvPjwvc3ZnPg==") 12 12, crosshair; }
+
+    .scene { position: fixed; inset: 0; overflow: hidden; }
+
+    .alley-bg {
+      position: absolute;
+      width: 108%; height: 108%;
+      top: -4%; left: -4%;
+      background-image: url('images/alley2.png');
+      background-size: cover;
+      background-position: center top;
+      will-change: transform;
+    }
+
+    .vignette {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, transparent 40%, rgba(10,6,20,0.65) 100%);
+      pointer-events: none; z-index: 2;
+    }
+
+    .fog-bottom {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,6,20,0.5) 0%, transparent 28%);
+      pointer-events: none; z-index: 2;
+    }
+
+    .scanlines {
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.018) 3px, rgba(0,0,0,0.018) 4px);
+      pointer-events: none; z-index: 50;
+    }
+
+    .hotspot {
+      position: absolute;
+      z-index: 20;
+      cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIzIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC45Ii8+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIwLjUiIG9wYWNpdHk9IjAuNCIvPjwvc3ZnPg==") 12 12, crosshair !important;
+      border-radius: 0;
+    }
+
+    .hotspot-glow {
+      position: absolute; inset: 0;
+      border-radius: 3px;
+      pointer-events: none;
+    }
+    .hp-projects .hotspot-glow {
+      background: radial-gradient(ellipse at center, rgba(255,60,172,0.12) 0%, transparent 75%);
+      animation: glowPulse 2.8s ease-in-out infinite;
+    }
+    .hp-research .hotspot-glow {
+      background: radial-gradient(ellipse at center, rgba(255,170,68,0.12) 0%, transparent 75%);
+      animation: glowPulse 3.2s ease-in-out infinite 0.4s;
+    }
+    .hp-about .hotspot-glow {
+      background: radial-gradient(ellipse at center, rgba(0,245,228,0.12) 0%, transparent 75%);
+      animation: glowPulse 3s ease-in-out infinite 0.8s;
+    }
+    .hotspot:hover .hotspot-glow {
+      animation: none;
+      opacity: 1;
+      filter: brightness(2);
+    }
+
+    /* WALL LABELS -- always visible, scramble on hover */
+    .wall-label {
+      position: absolute;
+      pointer-events: none;
+      z-index: 30;
+      font-size: clamp(1.2rem, 2.2vw, 2rem);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      opacity: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.1;
+    }
+    .wall-label span { display: block; }
+
+    /* Projects -- on the purple brick wall, right of pipe */
+    #wallProjects {
+      left: 26%;
+      top: 47%;
+      color: #fff;
+      text-shadow: 0 0 8px rgba(255,100,220,0.9), 0 0 20px rgba(255,60,172,0.7);
+    }
+
+    /* Research -- on the red vertical pillar */
+    #wallResearch {
+      left: 62%;
+      top: 32%;
+      color: #fff;
+      text-shadow: 0 0 8px rgba(255,100,80,0.9), 0 0 20px rgba(200,50,30,0.7);
+    }
+
+    /* About -- above the JENISE YANG sign, matching its angle */
+    #wallAbout {
+      left: 8%;
+      top: 11%;
+      color: #fff;
+      text-shadow: 0 0 8px rgba(0,245,228,0.9), 0 0 20px rgba(0,200,180,0.7);
+      font-size: clamp(1rem, 2vw, 1.6rem);
+      flex-direction: row;
+      gap: 0.3em;
+      transform: rotate(16deg);
+      transform-origin: center center;
+    }
+
+    /* CORNER BRACKETS */
+    .hotspot::before, .hotspot::after,
+    .hotspot-glow::before, .hotspot-glow::after {
+      content: '';
+      position: absolute;
+      width: 16px; height: 16px;
+      pointer-events: none;
+      transition: width 0.25s, height 0.25s, border-color 0.25s;
+    }
+    .hotspot::before  { top: 0; left: 0; border-top: 2px solid rgba(255,255,255,0.65); border-left: 2px solid rgba(255,255,255,0.65); }
+    .hotspot::after   { bottom: 0; right: 0; border-bottom: 2px solid rgba(255,255,255,0.65); border-right: 2px solid rgba(255,255,255,0.65); }
+    .hotspot-glow::before { top: 0; right: 0; border-top: 2px solid rgba(255,255,255,0.65); border-right: 2px solid rgba(255,255,255,0.65); }
+    .hotspot-glow::after  { bottom: 0; left: 0; border-bottom: 2px solid rgba(255,255,255,0.65); border-left: 2px solid rgba(255,255,255,0.65); }
+    .hotspot:hover::before, .hotspot:hover::after,
+    .hotspot:hover .hotspot-glow::before,
+    .hotspot:hover .hotspot-glow::after { width: 22px; height: 22px; border-color: rgba(255,255,255,1); }
+
+    .ripple {
+      position: fixed;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.55);
+      pointer-events: none;
+      z-index: 300;
+      opacity: 0;
+      transform: translate(-50%, -50%);
+    }
+
+    /* INTRO POPUP -- neon sign style, click to dismiss */
+    .intro-popup {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 150;
+      cursor: pointer;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+    .intro-popup.visible { opacity: 1; pointer-events: all; }
+    .intro-popup.hiding { opacity: 0; pointer-events: none; }
+
+    .neon-sign {
+      position: relative;
+      display: inline-block;
+      padding: 1.2rem 2.8rem;
+      border: 2px solid rgba(0,245,228,0.6);
+      border-radius: 4px;
+      background: rgba(0,10,12,0.55);
+      box-shadow:
+        0 0 8px rgba(0,245,228,0.4),
+        0 0 30px rgba(0,245,228,0.2),
+        inset 0 0 20px rgba(0,245,228,0.05);
+      animation: neonFlicker 4s ease-in-out infinite;
+    }
+
+    .neon-sign-text {
+      font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #00f5e4;
+      text-shadow:
+        0 0 6px #00f5e4,
+        0 0 20px rgba(0,245,228,0.8),
+        0 0 40px rgba(0,245,228,0.4);
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    .neon-sign-sub {
+      font-size: 0.5rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(0,245,228,0.45);
+      display: block;
+    }
+
+    @keyframes neonFlicker {
+      0%, 95%, 100% { opacity: 1; }
+      96% { opacity: 0.85; }
+      97% { opacity: 1; }
+      98% { opacity: 0.7; }
+      99% { opacity: 1; }
+    }
+
+    /* PAGE TRANSITION */
+    .transition-overlay {
+      position: fixed; inset: 0;
+      background: #0a0614;
+      z-index: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.65s cubic-bezier(0.4,0,0.2,1);
+    }
+    .transition-overlay.fade-in { opacity: 1; pointer-events: all; }
+  </style>
+</head>
+<body>
+  <div class="scene" id="scene">
+    <div class="alley-bg" id="alleyBg">
+      <!-- PROJECTS: art poster only -->
+      <div class="hotspot hp-projects" id="hp-projects"
+           style="left:9%; top:45%; width:10%; height:33%;">
+        <div class="hotspot-glow"></div>
+      </div>
+
+      <!-- RESEARCH: newspaper door -->
+      <div class="hotspot hp-research" id="hp-research"
+           style="left:67%; top:13%; width:27%; height:80%;">
+        <div class="hotspot-glow"></div>
+      </div>
+
+      <!-- ABOUT: JENISE YANG neon sign -->
+      <div class="hotspot hp-about" id="hp-about"
+           style="left:0%; top:12%; width:27%; height:22%;">
+        <div class="hotspot-glow"></div>
+      </div>
+
+      <!-- WALL LABELS move with the background -->
+      <div class="wall-label" id="wallProjects"></div>
+      <div class="wall-label" id="wallResearch"></div>
+      <div class="wall-label" id="wallAbout"></div>
+    </div>
+    <div class="vignette"></div>
+    <div class="fog-bottom"></div>
+
+  <div class="scanlines"></div>
+
+  <!-- INTRO POPUP -->
+  <div class="intro-popup" id="introPopup">
+    <div class="neon-sign">
+      <span class="neon-sign-text" id="introText"></span>
+      <span class="neon-sign-sub">click anywhere to enter</span>
+    </div>
+  </div>
+
+  <div class="ripple" id="ripple"></div>
+  <div class="transition-overlay" id="transOverlay"></div>
+
+  <script>
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#!%&';
+
+  function scrambleEl(el, final, cb) {
+    const isAbout = el.id === 'wallAbout';
+    let frame = 0;
+    clearInterval(el._iv);
+    el._iv = setInterval(() => {
+      frame++;
+      const letters = final.split('').map((ch, i) => {
+        if (ch === ' ') return isAbout ? ' ' : '';
+        const revealed = frame > i * 4;
+        const c = revealed ? ch : chars[Math.floor(Math.random() * chars.length)];
+        return `<span>${c}</span>`;
+      }).join('');
+      el.innerHTML = letters;
+      if (frame > 40) {
+        el.innerHTML = final.split('').map(ch => ch === ' ' ? (isAbout ? ' ' : '') : `<span>${ch}</span>`).join('');
+        clearInterval(el._iv);
+        if (cb) cb();
+      }
+    }, 50);
+  }
+
+  function scrambleText(el, final, cb) {
+    let frame = 0;
+    clearInterval(el._iv);
+    el._iv = setInterval(() => {
+      frame++;
+      if (frame > 20) {
+        el.textContent = final;
+        clearInterval(el._iv);
+        if (cb) cb();
+        return;
+      }
+      el.textContent = final.split('').map((ch, i) => {
+        if (ch === ' ') return ' ';
+        if (frame > i * 2) return ch;
+        return chars[Math.floor(Math.random() * chars.length)];
+      }).join('');
+    }, 50);
+  }
+  const bg = document.getElementById('alleyBg');
+  let mouseX=0, mouseY=0, curX=0, curY=0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = (e.clientX/window.innerWidth  - 0.5) * 2;
+    mouseY = (e.clientY/window.innerHeight - 0.5) * 2;
+  });
+
+  (function parallax() {
+    curX += (mouseX - curX) * 0.04;
+    curY += (mouseY - curY) * 0.04;
+    bg.style.transform = `translate(${curX * -28}px, ${curY * -16}px)`;
+    requestAnimationFrame(parallax);
+  })();
+
+  // INTRO -- neon sign, click anywhere to dismiss
+  const introPopup = document.getElementById('introPopup');
+  const introText  = document.getElementById('introText');
+  let introDismissed = false;
+  setTimeout(() => {
+    introPopup.classList.add('visible');
+    scrambleText(introText, 'explore the alley');
+  }, 400);
+
+  document.addEventListener('click', () => {
+    if (introDismissed) return;
+    introDismissed = true;
+    introPopup.classList.add('hiding');
+    setTimeout(() => introPopup.remove(), 700);
+  }, { once: true });
+
+  // PARALLAX
+  const wallProjects = document.getElementById('wallProjects');
+  const wallResearch = document.getElementById('wallResearch');
+  const wallAbout    = document.getElementById('wallAbout');
+
+  // HOTSPOTS
+  const hotspots = [
+    { id:'hp-projects', text:'PROJECTS', url:'projects.html', wall: wallProjects },
+    { id:'hp-research', text:'RESEARCH', url:'research.html', wall: wallResearch },
+    { id:'hp-about',    text:'ABOUT',    url:'about.html',    wall: wallAbout    },
+  ];
+
+  const FILM_CURSOR = 'url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIzIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC45Ii8+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIwLjUiIG9wYWNpdHk9IjAuNCIvPjwvc3ZnPg==") 12 12, crosshair';
+
+  // Render letters into wall label
+  function renderLabel(el, text) {
+    const isRow = el.id === 'wallAbout';
+    el.innerHTML = text.split('').map(ch =>
+      ch === ' ' ? (isRow ? ' ' : '') : `<span>${ch}</span>`
+    ).join('');
+  }
+
+  hotspots.forEach(({ id, text, url, wall }) => {
+    const el = document.getElementById(id);
+    // Render static label immediately
+    renderLabel(wall, text);
+    // Scramble on hover
+    el.addEventListener('mouseenter', () => scrambleEl(wall, text));
+    el.addEventListener('mouseleave', () => {
+      clearInterval(wall._iv);
+      renderLabel(wall, text); // restore cleanly
+    });
+    el.addEventListener('click', e => triggerTransition(e, url));
+  });
+
+  // RIPPLE + TRANSITION
+  const rippleEl  = document.getElementById('ripple');
+  const overlayEl = document.getElementById('transOverlay');
+
+  function triggerTransition(e, url) {
+    const x = e.clientX, y = e.clientY;
+    const maxR = Math.hypot(Math.max(x, window.innerWidth-x), Math.max(y, window.innerHeight-y));
+    rippleEl.style.transition = 'none';
+    rippleEl.style.left = x+'px'; rippleEl.style.top = y+'px';
+    rippleEl.style.width = '0px'; rippleEl.style.height = '0px';
+    rippleEl.style.opacity = '0.8';
+    requestAnimationFrame(() => {
+      rippleEl.style.transition = 'width 0.5s ease-out, height 0.5s ease-out, opacity 0.5s ease-out';
+      rippleEl.style.width  = (maxR*2)+'px';
+      rippleEl.style.height = (maxR*2)+'px';
+      rippleEl.style.opacity = '0';
+    });
+    setTimeout(() => {
+      overlayEl.classList.add('fade-in');
+      setTimeout(() => { window.location.href = url; }, 700);
+    }, 200);
+  }
+
+  // Fade in on load
+  overlayEl.style.opacity = '1';
+  overlayEl.style.transition = 'none';
+  overlayEl.style.pointerEvents = 'none';
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      overlayEl.style.transition = 'opacity 0.7s cubic-bezier(0.4,0,0.2,1)';
+      overlayEl.style.opacity = '0';
+    }, 50);
+  });
+  </script>
+</body>
+</html>

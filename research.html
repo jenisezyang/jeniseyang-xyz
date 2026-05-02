@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research — Jenise Yang</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text: #e8e4dc;
+      --muted: #888;
+      --accent: #c8a96e;
+      --border: rgba(255,255,255,0.08);
+      --wood: rgba(20,14,8,0.72);
+    }
+
+    body {
+      background: #0a0705;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIzIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC45Ii8+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIwLjUiIG9wYWNpdHk9IjAuNCIvPjwvc3ZnPg==") 12 12, crosshair;
+    }
+
+    /* BACKGROUND */
+    .bg {
+      position: fixed; inset: 0;
+      background: url('images/boards.png') center center / cover no-repeat;
+      z-index: 0;
+    }
+    .bg-overlay {
+      position: fixed; inset: 0;
+      background: rgba(5,3,2,0.35);
+      z-index: 1;
+    }
+
+    /* NAV */
+    .back-btn {
+      position: fixed; top: 1.8rem; left: 2rem; z-index: 200;
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(232,228,220,0.45); text-decoration: none; transition: color 0.2s;
+    }
+    .back-btn:hover { color: var(--text); }
+    .nav {
+      position: fixed; top: 1.8rem; right: 2rem; z-index: 200;
+      display: flex; gap: 1.5rem;
+    }
+    .nav a {
+      font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(232,228,220,0.4); text-decoration: none; transition: color 0.2s;
+    }
+    .nav a:hover { color: var(--text); }
+    .nav a.active { color: var(--accent); }
+
+    /* PAGE TITLE */
+    .page-header {
+      position: relative; z-index: 10;
+      padding: 3rem 4rem 2rem;
+      text-align: center;
+    }
+    .page-header h1 {
+      font-family: 'Instrument Serif', serif; font-style: italic;
+      font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 400;
+      color: var(--text); margin-bottom: 0.4rem;
+      text-shadow: 0 0 30px rgba(200,169,110,0.3);
+    }
+    .page-header p {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(232,228,220,0.35);
+    }
+
+    /* PLANKS CONTAINER */
+    .planks {
+      position: relative; z-index: 10;
+      max-width: 900px; margin: 0 auto;
+      padding: 0 3rem 5rem;
+      display: flex; flex-direction: column; gap: 0;
+    }
+
+    /* SINGLE PLANK */
+    .plank {
+      position: relative;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(0,0,0,0.3);
+      padding: 1.1rem 1.5rem;
+      background: rgba(10,7,4,0.45);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      transition: background 0.3s;
+      cursor: default;
+    }
+
+    .plank.active {
+      cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIzIiBmaWxsPSJ3aGl0ZSIgb3BhY2l0eT0iMC45Ii8+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iNSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIwLjUiIG9wYWNpdHk9IjAuNCIvPjwvc3ZnPg==") 12 12, pointer;
+    }
+    .plank.active:hover { background: rgba(200,169,110,0.08); }
+
+    .plank-inner {
+      display: flex; align-items: center; gap: 1.5rem;
+    }
+
+    .plank-num {
+      font-size: 0.55rem; letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.2); width: 1.5rem; flex-shrink: 0; text-align: right;
+    }
+
+    .plank-content { flex: 1; min-width: 0; }
+
+    .plank-title {
+      font-size: 0.9rem; font-weight: 600; color: var(--text);
+      margin-bottom: 0.15rem;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .plank.coming-soon .plank-title { color: rgba(255,255,255,0.25); }
+
+    .plank-meta {
+      font-size: 0.62rem; color: var(--muted);
+      display: flex; gap: 1rem; align-items: center;
+    }
+    .plank.coming-soon .plank-meta { color: rgba(255,255,255,0.15); }
+
+    .plank-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--muted); flex-shrink: 0; }
+
+    .plank-thesis {
+      font-size: 0.72rem; color: rgba(232,228,220,0.55);
+      font-family: 'Instrument Serif', serif; font-style: italic;
+      margin-top: 0.3rem;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    .plank-right {
+      display: flex; align-items: center; gap: 1rem; flex-shrink: 0;
+    }
+
+    .plank-rating {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+    }
+    .rating-buy    { color: #4ade80; }
+    .rating-hold   { color: #facc15; }
+    .rating-sell   { color: #f87171; }
+
+    .plank-arrow {
+      font-size: 0.7rem; color: rgba(255,255,255,0.3);
+      transition: color 0.2s, transform 0.2s;
+    }
+    .plank.active:hover .plank-arrow { color: var(--accent); transform: translateX(3px); }
+
+    .plank-soon-badge {
+      font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 0.2rem 0.5rem; border-radius: 2px;
+    }
+
+    /* PDF POPUP */
+    .popup-overlay {
+      position: fixed; inset: 0; z-index: 400;
+      background: rgba(5,3,2,0.8);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s;
+    }
+    .popup-overlay.open { opacity: 1; pointer-events: all; }
+
+    .popup {
+      width: 85vw; max-width: 1000px;
+      height: 85vh;
+      background: #0f0b08;
+      border: 1px solid rgba(200,169,110,0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+      position: relative;
+    }
+    .popup-overlay.open .popup { transform: translateY(0) scale(1); }
+
+    .popup-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .popup-header-left { display: flex; align-items: center; gap: 1rem; }
+    .popup-header-title { font-size: 0.8rem; font-weight: 600; color: var(--text); }
+    .popup-header-meta { font-size: 0.62rem; color: var(--muted); }
+    .popup-rating-badge {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
+      padding: 0.2rem 0.6rem; border-radius: 3px;
+      background: rgba(74,222,128,0.12); color: #4ade80;
+      border: 1px solid rgba(74,222,128,0.2);
+    }
+    .popup-close {
+      font-size: 0.7rem; color: var(--muted); cursor: pointer;
+      background: none; border: none; transition: color 0.2s; padding: 4px 8px;
+    }
+    .popup-close:hover { color: var(--text); }
+
+    .popup-pdf {
+      flex: 1; width: 100%;
+      border: none; background: #fff;
+    }
+
+    /* TRANSITION */
+    .transition-overlay {
+      position: fixed; inset: 0; background: #0a0705;
+      z-index: 500; opacity: 0; pointer-events: none; transition: opacity 0.5s;
+    }
+    .transition-overlay.fade-in { opacity: 1; pointer-events: all; }
+
+    @media (max-width: 600px) {
+      .planks { padding: 0 1.5rem 4rem; }
+      .page-header { padding: 5rem 1.5rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="bg-overlay"></div>
+
+  <a href="index.html" class="back-btn" id="backBtn">← index</a>
+  <nav class="nav">
+    <a href="index.html">index</a>
+    <a href="projects.html">projects</a>
+    <a href="research.html" class="active">research</a>
+    <a href="about.html">about</a>
+  </nav>
+
+  <div class="page-header">
+    <h1>Equity Research</h1>
+    <p>Independent analysis · Long-form reports</p>
+  </div>
+
+  <div class="planks">
+
+    <!-- 01 NVIDIA -- ACTIVE -->
+    <div class="plank active" id="plank-nvidia">
+      <div class="plank-inner">
+        <span class="plank-num">01</span>
+        <div class="plank-content">
+          <div class="plank-title">NVIDIA Corporation <span style="color:var(--muted);font-weight:400;font-size:0.75rem;">· NVDA</span></div>
+          <div class="plank-meta">
+            <span>Semiconductors</span>
+            <span class="plank-meta-dot"></span>
+            <span>April 2026</span>
+          </div>
+          <div class="plank-thesis">AI chip dominance positions NVIDIA for sustained margin expansion despite geopolitical headwinds</div>
+        </div>
+        <div class="plank-right">
+          <span class="plank-rating rating-buy">BUY</span>
+          <span class="plank-arrow">→</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02–10 COMING SOON -->
+    <div class="plank coming-soon">
+      <div class="plank-inner">
+        <span class="plank-num">02</span>
+        <div class="plank-content">
+          <div class="plank-title">Coming Soon</div>
+          <div class="plank-meta"><span>Equity Research</span></div>
+        </div>
+        <div class="plank-right"><span class="plank-soon-badge">Upcoming</span></div>
+      </div>
+    </div>
+
+    <div class="plank coming-soon">
+      <div class="plank-inner">
+        <span class="plank-num">03</span>
+        <div class="plank-content">
+          <div class="plank-title">Coming Soon</div>
+          <div class="plank-meta"><span>Equity Research</span></div>
+        </div>
+        <div class="plank-right"><span class="plank-soon-badge">Upcoming</span></div>
+      </div>
+    </div>
+
+    <div class="plank coming-soon">
+      <div class="plank-inner">
+        <span class="plank-num">04</span>
+        <div class="plank-content">
+          <div class="plank-title">Coming Soon</div>
+          <div class="plank-meta"><span>Equity Research</span></div>
+        </div>
+        <div class="plank-right"><span class="plank-soon-badge">Upcoming</span></div>
+      </div>
+    </div>
+
+    <div class="plank coming-soon">
+      <div class="plank-inner">
+        <span class="plank-num">05</span>
+        <div class="plank-content">
+          <div class="plank-title">Coming Soon</div>
+          <div class="plank-meta"><span>Equity Research</span></div>
+        </div>
+        <div class="plank-right"><span class="plank-soon-badge">Upcoming</span></div>
+      </div>
+    </div>
+
+    <div class="plank coming-soon">
+      <div class="plank-inner">
+        <span class="plank-num">06</span>
+        <div class="plank-content">
+          <div class="plank-title">Coming Soon</div>
+          <div class="plank-meta"><span>Equity Research</span></div>
+        </div>
+        <div class="plank-right"><span class="plank-soon-badge">Upcoming</span></div>
+      </div>
+    </div>
+
+    <div class="plank coming-soon">
+      <div class="plank-inner">
+        <span class="plank-num">07</span>
+        <div class="plank-content">
+          <div class="plank-title">Coming Soon</div>
+          <div class="plank-meta"><span>Equity Research</span></div>
+        </div>
+        <div class="plank-right"><span class="plank-soon-badge">Upcoming</span></div>
+      </div>
+    </div>
+
+    <div class="plank coming-soon">
+      <div class="plank-inner">
+        <span class="plank-num">08</span>
+        <div class="plank-content">
+          <div class="plank-title">Coming Soon</div>
+          <div class="plank-meta"><span>Equity Research</span></div>
+        </div>
+        <div class="plank-right"><span class="plank-soon-badge">Upcoming</span></div>
+      </div>
+    </div>
+
+    <div class="plank coming-soon">
+      <div class="plank-inner">
+        <span class="plank-num">09</span>
+        <div class="plank-content">
+          <div class="plank-title">Coming Soon</div>
+          <div class="plank-meta"><span>Equity Research</span></div>
+        </div>
+        <div class="plank-right"><span class="plank-soon-badge">Upcoming</span></div>
+      </div>
+    </div>
+
+    <div class="plank coming-soon">
+      <div class="plank-inner">
+        <span class="plank-num">10</span>
+        <div class="plank-content">
+          <div class="plank-title">Coming Soon</div>
+          <div class="plank-meta"><span>Equity Research</span></div>
+        </div>
+        <div class="plank-right"><span class="plank-soon-badge">Upcoming</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PDF POPUP -->
+  <div class="popup-overlay" id="pdfPopup">
+    <div class="popup">
+      <div class="popup-header">
+        <div class="popup-header-left">
+          <div>
+            <div class="popup-header-title">NVIDIA Corporation · NVDA</div>
+            <div class="popup-header-meta">Semiconductors · April 2026 · Independent Equity Research</div>
+          </div>
+          <span class="popup-rating-badge">BUY</span>
+        </div>
+        <button class="popup-close" id="pdfClose">✕</button>
+      </div>
+      <iframe class="popup-pdf" id="pdfFrame" src="" title="NVIDIA Equity Research"></iframe>
+    </div>
+  </div>
+
+  <div class="transition-overlay" id="transOverlay"></div>
+
+  <script>
+    // Page transition in
+    const o = document.getElementById('transOverlay');
+    o.style.opacity = '1'; o.style.transition = 'none'; o.style.pointerEvents = 'none';
+    requestAnimationFrame(() => setTimeout(() => { o.style.transition = 'opacity 0.6s'; o.style.opacity = '0'; }, 50));
+
+    document.getElementById('backBtn').addEventListener('click', e => {
+      e.preventDefault(); o.classList.add('fade-in');
+      setTimeout(() => window.location.href = 'index.html', 550);
+    });
+    document.querySelectorAll('.nav a').forEach(link => {
+      link.addEventListener('click', e => {
+        const href = link.getAttribute('href');
+        if (href && href !== 'research.html') {
+          e.preventDefault(); o.classList.add('fade-in');
+          setTimeout(() => window.location.href = href, 550);
+        }
+      });
+    });
+
+    // PDF popup
+    const popup = document.getElementById('pdfPopup');
+    const pdfFrame = document.getElementById('pdfFrame');
+
+    document.getElementById('plank-nvidia').addEventListener('click', () => {
+      pdfFrame.src = 'nvidia.pdf';
+      popup.classList.add('open');
+    });
+
+    document.getElementById('pdfClose').addEventListener('click', () => {
+      popup.classList.remove('open');
+      setTimeout(() => { pdfFrame.src = ''; }, 400);
+    });
+
+    popup.addEventListener('click', e => {
+      if (e.target === popup) {
+        popup.classList.remove('open');
+        setTimeout(() => { pdfFrame.src = ''; }, 400);
+      }
+    });
+  </script>
+</body>
+</html>

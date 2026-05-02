@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Atlas — Jenise Yang</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg: #f8f8f8; --text: #1a1a1a; --muted: #666; --light: #999; --border: #e5e5e5; --blue: #4A90D9; --navy: #1B3A6B; --surface: #fff; }
+    body { cursor: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDMyIDI0Ij48cGF0aCBkPSJNMiw4IEwyLDIgTDgsMiIgc3Ryb2tlPSIjMWExYTJlIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPjxwYXRoIGQ9Ik0yNCwyIEwzMCwyIEwzMCw4IiBzdHJva2U9IiMxYTFhMmUiIHN0cm9rZS13aWR0aD0iMS41IiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTIsMTYgTDIsMjIgTDgsMjIiIHN0cm9rZT0iIzFhMWEyZSIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNMjQsMjIgTDMwLDIyIEwzMCwxNiIgc3Ryb2tlPSIjMWExYTJlIiBzdHJva2Utd2lkdGg9IjEuNSIgZmlsbD0ibm9uZSIvPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTIiIHI9IjEuMiIgZmlsbD0iIzFhMWEyZSIvPjwvc3ZnPg==") 12 12, crosshair; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; }
+    .back-btn { position: fixed; top: 1.8rem; left: 2rem; z-index: 100; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); cursor: pointer; text-decoration: none; transition: color 0.2s; }
+    .back-btn:hover { color: var(--text); }
+    .hero { max-width: 1100px; margin: 0 auto; padding: 5rem 3rem 3rem; }
+    .hero-title { font-family: 'Instrument Serif', serif; font-style: italic; font-size: clamp(3rem, 7vw, 6rem); font-weight: 400; line-height: 1; margin-bottom: 0.5rem; color: var(--navy); }
+    .hero-tag { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .hero-meta { display: flex; gap: 3rem; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .meta-label { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--light); margin-bottom: 0.3rem; }
+    .meta-value { font-size: 0.8rem; color: var(--text); }
+    .meta-value a { color: var(--blue); text-decoration: none; }
+    .layout { max-width: 1100px; margin: 0 auto; padding: 0 3rem 6rem; display: grid; grid-template-columns: 1fr 280px; gap: 4rem; }
+    .section { margin-bottom: 3rem; }
+    .section-title { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 0.75rem; }
+    .section-text { font-size: 0.88rem; color: var(--text); line-height: 1.75; }
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
+    .feature-card { background: var(--navy); border-radius: 8px; padding: 1.25rem; color: white; }
+    .feature-icon { font-size: 1.1rem; margin-bottom: 0.6rem; }
+    .feature-title { font-size: 0.78rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .feature-text { font-size: 0.72rem; opacity: 0.7; line-height: 1.5; }
+    .preview-img { width: 100%; border-radius: 8px; border: 1px solid var(--border); margin-top: 1.5rem; display: block; }
+    .north-star { background: var(--navy); border-radius: 8px; padding: 1.25rem 1.5rem; margin-top: 1rem; margin-bottom: 1rem; }
+    .ns-label { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 0.4rem; }
+    .ns-value { font-size: 0.95rem; font-weight: 600; color: white; line-height: 1.4; }
+    .kpi-list { list-style: none; }
+    .kpi-list li { font-size: 0.8rem; color: var(--muted); padding: 0.4rem 0; padding-left: 1.25rem; position: relative; border-bottom: 1px solid var(--border); }
+    .kpi-list li:last-child { border-bottom: none; }
+    .kpi-list li::before { content: '→'; position: absolute; left: 0; color: var(--blue); }
+    .reflection-card { background: var(--surface); border-left: 3px solid var(--blue); border-radius: 0 6px 6px 0; padding: 1.25rem 1.5rem; margin-bottom: 1rem; }
+    .reflection-title { font-size: 0.82rem; font-weight: 600; margin-bottom: 0.6rem; }
+    .reflection-text { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+    .sidebar { position: sticky; top: 5rem; }
+    .sidebar-label { font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--light); margin-bottom: 1rem; }
+    .journey-item { position: relative; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+    .journey-item::before { content: ''; position: absolute; left: 0; top: 0.35rem; width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+    .journey-item.active::before { background: var(--blue); }
+    .journey-item-title { font-size: 0.78rem; font-weight: 500; margin-bottom: 0.2rem; }
+    .journey-item.active .journey-item-title { color: var(--blue); }
+    .journey-item-sub { font-size: 0.7rem; color: var(--muted); line-height: 1.4; }
+    .journey-line { position: absolute; left: 3.5px; top: 1rem; bottom: -1rem; width: 1px; background: var(--border); }
+    .transition-overlay { position: fixed; inset: 0; background: var(--bg); z-index: 500; opacity: 0; pointer-events: none; transition: opacity 0.5s; }
+    .transition-overlay.fade-in { opacity: 1; pointer-events: all; }
+    @media (max-width: 800px) { .layout { grid-template-columns: 1fr; } .sidebar { display: none; } .feature-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <a href="projects.html" class="back-btn" id="backBtn">← projects</a>
+  <div class="hero">
+    <h1 class="hero-title">Atlas</h1>
+    <div class="hero-tag">Product Heist 2025 · 3rd / 15 teams · AI Platform for VC Deal Flow</div>
+    <div class="hero-meta">
+      <div class="meta-item"><div class="meta-label">Role</div><div class="meta-value">Product Strategy &amp; Design</div></div>
+      <div class="meta-item"><div class="meta-label">Timeline</div><div class="meta-value">November 2025</div></div>
+      <div class="meta-item"><div class="meta-label">Links</div><div class="meta-value"><a href="atlas.pdf" target="_blank">Pitch Deck</a></div></div>
+    </div>
+  </div>
+  <div class="layout">
+    <div class="main">
+      <div class="section">
+        <div class="section-title">The Problem</div>
+        <p class="section-text">VC analysts spend ~118 hours per potential investment. Relationship data is scattered across email, LinkedIn, and notes. There's no systematic way to prioritize deal flow. Teams spend more time managing information than making decisions -- and the best opportunities get lost in the noise.</p>
+      </div>
+      <div class="section">
+        <div class="section-title">The Insight</div>
+        <p class="section-text">Three signals reveal the true trajectory of a startup: revenue growth, total users acquired, and founders' inter-relationships. If a platform could automatically surface these signals and map the relationship layer, analysts could cut evaluation time from 60 minutes to 15 -- and make better decisions doing it.</p>
+      </div>
+      <div class="section">
+        <div class="section-title">The Solution</div>
+        <p class="section-text">Atlas is the operating system for venture teams -- combining an agentic AI system, relationship mapping engine, and startup scoring into one platform. It connects LinkedIn, GitHub, Google Scholar, and email to give analysts a structured, focused workflow.</p>
+        <div class="feature-grid">
+          <div class="feature-card"><div class="feature-icon">🤖</div><div class="feature-title">Agentic AI</div><div class="feature-text">Auto-extracts metrics, summarizes pitch decks, preps meeting briefs, updates records.</div></div>
+          <div class="feature-card"><div class="feature-icon">🕸️</div><div class="feature-title">Relationship Maps</div><div class="feature-text">Visualizes warm intro paths, founder networks, and LP connections across all data sources.</div></div>
+          <div class="feature-card"><div class="feature-icon">📊</div><div class="feature-title">Startup Scoring</div><div class="feature-text">AI scores on revenue growth, user acquisition, and founder networks -- surfacing high-potential deals instantly.</div></div>
+        </div>
+        <img src="images/atlas.avif" alt="Atlas" class="preview-img" />
+      </div>
+      <div class="section">
+        <div class="section-title">Impact</div>
+        <div class="north-star"><div class="ns-label">Core Value Proposition</div><div class="ns-value">60 → 15 minutes per startup. 3-4 → 12-15 reports per week.</div></div>
+        <ul class="kpi-list">
+          <li>4x faster evaluation time per startup</li>
+          <li>3x more reports produced per analyst per week</li>
+          <li>Warm intro paths surfaced automatically for every deal</li>
+          <li>Consistent, structured memos replacing ad-hoc notes</li>
+        </ul>
+      </div>
+      <div class="section">
+        <div class="section-title">Reflection</div>
+        <div class="reflection-card"><div class="reflection-title">What I Learned</div><div class="reflection-text">The relationship mapping angle was the most differentiated part of Atlas and also the hardest to build conviction around early. Most VC tools focus on documents and data -- the network layer is underbuilt. That's where the real insight was, and I'm proud we leaned into it even when it was the harder thing to explain.</div></div>
+        <div class="reflection-card"><div class="reflection-title">What I'd Do Differently</div><div class="reflection-text">I'd have done more primary research with actual analysts before the competition. We built personas based on public information, but a few 30-minute calls would have sharpened our understanding of where the real friction is in the day-to-day workflow.</div></div>
+        <div class="reflection-card"><div class="reflection-title">Grateful For</div><div class="reflection-text">Product Heist pushed me to think beyond features and into business models and go-to-market. I'm grateful for a competition format that asked us to think like founders, not just product managers.</div></div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="sidebar-label">Product Journey</div>
+      <div class="journey-item active"><div class="journey-line"></div><div class="journey-item-title">Problem Research</div><div class="journey-item-sub">VC workflow analysis</div></div>
+      <div class="journey-item"><div class="journey-line"></div><div class="journey-item-title">Persona Development</div><div class="journey-item-sub">Alex (analyst) and James (partner)</div></div>
+      <div class="journey-item"><div class="journey-line"></div><div class="journey-item-title">Platform Design</div><div class="journey-item-sub">Three-system architecture</div></div>
+      <div class="journey-item"><div class="journey-item-title">Competition</div><div class="journey-item-sub">3rd place, Product Heist 2025</div></div>
+    </div>
+  </div>
+  <div class="transition-overlay" id="transOverlay"></div>
+  <script>
+    document.getElementById('backBtn').addEventListener('click', e => { e.preventDefault(); const o = document.getElementById('transOverlay'); o.classList.add('fade-in'); setTimeout(() => window.location.href = 'projects.html', 550); });
+    const o = document.getElementById('transOverlay'); o.style.opacity = '1'; o.style.transition = 'none'; o.style.pointerEvents = 'none';
+    requestAnimationFrame(() => setTimeout(() => { o.style.transition = 'opacity 0.6s'; o.style.opacity = '0'; }, 50));
+  </script>
+</body>
+</html>
