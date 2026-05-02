@@ -316,6 +316,7 @@
     /* spotify panel */
     .sp-now { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1.2rem; padding-bottom: 1.2rem; border-bottom: 1px solid var(--border); }
     .sp-now-art { width: 54px; height: 54px; border-radius: 4px; background: #111; flex-shrink: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .sp-now-art img { width: 54px; height: 54px; object-fit: cover; display: block; }
     .sp-now-art svg { width: 22px; height: 22px; fill: rgba(255,255,255,0.2); }
     .sp-now-label { font-size: 0.52rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.22rem; }
     .sp-now-track { font-size: 0.85rem; font-weight: 500; color: var(--text); }
@@ -324,7 +325,8 @@
     .sp-tracks { display: flex; flex-direction: column; gap: 0.55rem; margin-bottom: 1.1rem; }
     .sp-track { display: flex; align-items: center; gap: 0.65rem; }
     .sp-track-num { font-size: 0.62rem; color: var(--muted); width: 12px; text-align: right; flex-shrink: 0; }
-    .sp-track-art { width: 32px; height: 32px; border-radius: 3px; background: #111; flex-shrink: 0; }
+    .sp-track-art { width: 32px; height: 32px; border-radius: 3px; background: #111; flex-shrink: 0; overflow: hidden; }
+    .sp-track-art img { width: 32px; height: 32px; object-fit: cover; display: block; }
     .sp-track-name { font-size: 0.75rem; color: var(--text); }
     .sp-track-artist { font-size: 0.62rem; color: var(--muted); }
     .sp-artists { display: flex; gap: 0.45rem; flex-wrap: wrap; }
